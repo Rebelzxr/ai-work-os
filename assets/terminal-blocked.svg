@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="198" viewBox="0 0 960 198" role="img" aria-label="PreToolUse hook: block-dangerous.sh output">
-<rect width="960" height="198" rx="16" fill="#1d201c"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="224" viewBox="0 0 960 224" role="img" aria-label="PreToolUse hook: block-dangerous.sh output">
+<rect width="960" height="224" rx="16" fill="#1d201c"/>
 <circle cx="28" cy="28" r="7" fill="#f87171"/><circle cx="50" cy="28" r="7" fill="#fbbf24"/><circle cx="72" cy="28" r="7" fill="#86efac"/>
 <text x="480.0" y="33" text-anchor="middle" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="14" fill="#9a9c92">PreToolUse hook: block-dangerous.sh</text>
 <text x="28" y="80" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#9a9c92" xml:space="preserve"># the agent tries a force push</text>
 <text x="28" y="106" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#f87171" xml:space="preserve">BLOCKED (force push): git push --force origin main</text>
-<text x="28" y="132" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">This needs the human&#x27;s explicit approval for the exact command. Propose a safer alternative or ask.</text>
-<text x="28" y="158" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#9a9c92" xml:space="preserve"># exit 2: Claude Code stops the command and must ask you</text>
+<text x="28" y="132" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">This needs the human&#x27;s explicit approval for the exact command.</text>
+<text x="28" y="158" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">Propose a safer alternative or ask.</text>
+<text x="28" y="184" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#9a9c92" xml:space="preserve"># exit 2: Claude Code stops the command and must ask you</text>
 </svg>
