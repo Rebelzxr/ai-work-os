@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="354" viewBox="0 0 960 354" role="img" aria-label="SessionStart hook output">
+<rect width="960" height="354" rx="16" fill="#1d201c"/>
+<circle cx="28" cy="28" r="7" fill="#f87171"/><circle cx="50" cy="28" r="7" fill="#fbbf24"/><circle cx="72" cy="28" r="7" fill="#86efac"/>
+<text x="480.0" y="33" text-anchor="middle" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="14" fill="#9a9c92">SessionStart hook</text>
+<text x="28" y="80" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#fbbf77" xml:space="preserve">$ claude   # new session in ~/my-work</text>
+<text x="28" y="106" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">Workspace: my-work · 2026-09-23 20:53</text>
+<text x="28" y="132" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#9a9c92" xml:space="preserve">## Context for next session</text>
+<text x="28" y="158" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">- Today&#x27;s focus: `&lt;one outcome&gt;`</text>
+<text x="28" y="184" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">- Waiting on me: `&lt;decisions only you can make&gt;`</text>
+<text x="28" y="210" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">- Waiting on others: `&lt;external blockers&gt;`</text>
+<text x="28" y="236" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve"></text>
+<text x="28" y="262" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">Lanes on the board:</text>
+<text x="28" y="288" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">- `&lt;Lane one&gt;`</text>
+<text x="28" y="314" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">- `&lt;Lane two&gt;`</text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="t d">
+<title id="t">AI Work OS</title>
+<desc id="d">You ask for an outcome. The rules file, the board and a job packet steer the agent. The agent builds, writes a receipt and ends with a STATUS line. You approve anything that sends, spends or deploys.</desc>
+<style>
+text{font-family:-apple-system,"Segoe UI",Arial,sans-serif;fill:#222724}
+.m{font-family:"SF Mono",Menlo,Consolas,monospace}
+.g{fill:#6b6e68}.w{fill:#f5f3ed}.r{fill:#a8322a}
+.card{fill:#fbfaf6;stroke:#222724;stroke-width:2}
+.ink{fill:#222724}
+.arrow{stroke:#222724;stroke-width:2.5;fill:none}
+@keyframes led{0%,100%{opacity:1}50%{opacity:.25}}
+.led{animation:led 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.led{animation:none}}
+</style>
+<rect width="1200" height="600" rx="28" fill="#f5f3ed"/>
+<text x="60" y="78" class="b" font-size="18" letter-spacing="3" fill="#6b6e68" font-weight="700">AI WORK OS</text>
+<text x="60" y="128" font-size="40" font-weight="700">You decide. Agents do the work.</text>
+<text x="60" y="176" font-size="40" font-weight="700" class="r">Files keep the proof.</text>
+
+<g font-size="21">
+  <rect x="60" y="232" width="320" height="120" rx="16" class="ink"/>
+  <text x="84" y="276" class="w" font-weight="700">1 · You</text>
+  <text x="84" y="310" class="w">ask for one outcome</text>
+  <path d="M392 292 h44 m-12 -12 l12 12 l-12 12" class="arrow"/>
+
+  <rect x="448" y="232" width="320" height="120" rx="16" class="card"/>
+  <text x="472" y="276" font-weight="700">2 · Rules and board</text>
+  <text x="472" y="310" class="m g" font-size="18">AGENTS.md · TODO.md</text>
+  <path d="M780 292 h44 m-12 -12 l12 12 l-12 12" class="arrow"/>
+
+  <rect x="836" y="232" width="304" height="120" rx="16" class="card"/>
+  <text x="860" y="276" font-weight="700">3 · Job packet</text>
+  <text x="860" y="310" class="g" font-size="19">files, done means, stop if</text>
+  <path d="M988 364 v44 m-12 -12 l12 12 l12 -12" class="arrow"/>
+
+  <rect x="836" y="420" width="304" height="120" rx="16" class="card"/>
+  <text x="860" y="464" font-weight="700">4 · Agent builds</text>
+  <text x="860" y="498" class="g" font-size="19">Claude, Codex, Cursor</text>
+  <path d="M824 480 h-44 m12 -12 l-12 12 l12 12" class="arrow"/>
+
+  <rect x="448" y="420" width="320" height="120" rx="16" fill="#fbfaf6" stroke="#a8322a" stroke-width="3"/>
+  <circle cx="480" cy="457" r="8" fill="#a8322a" class="led"/>
+  <text x="500" y="464" font-weight="700" class="r">5 · Receipt + STATUS</text>
+  <text x="472" y="498" class="m g" font-size="15">VERIFIED · UNVERIFIED · BROKEN</text>
+  <path d="M436 480 h-44 m12 -12 l-12 12 l12 12" class="arrow"/>
+
+  <rect x="60" y="420" width="320" height="120" rx="16" class="ink"/>
+  <text x="84" y="464" class="w" font-weight="700">6 · You approve</text>
+  <text x="84" y="498" class="w">sends, spend, deploys</text>
+</g>
+</svg>

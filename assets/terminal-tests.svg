@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="172" viewBox="0 0 960 172" role="img" aria-label="tests output">
+<rect width="960" height="172" rx="16" fill="#1d201c"/>
+<circle cx="28" cy="28" r="7" fill="#f87171"/><circle cx="50" cy="28" r="7" fill="#fbbf24"/><circle cx="72" cy="28" r="7" fill="#86efac"/>
+<text x="480.0" y="33" text-anchor="middle" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="14" fill="#9a9c92">tests</text>
+<text x="28" y="80" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#fbbf77" xml:space="preserve">$ bash tests/test-setup.sh &amp;&amp; bash tests/test-hooks.sh</text>
+<text x="28" y="106" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">setup: 14 passed, 0 failed</text>
+<text x="28" y="132" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">hooks: 213 passed, 0 failed</text>
+</svg>

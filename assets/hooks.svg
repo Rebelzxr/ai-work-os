@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="t">
+<title id="t">Four Claude Code hooks: SessionStart shows the board, PreToolUse blocks one-way-door commands, PreCompact saves a snapshot, Stop logs replies without a STATUS line</title>
+<style>
+text{font-family:-apple-system,"Segoe UI",Arial,sans-serif;fill:#222724}
+.m{font-family:"SF Mono",Menlo,Consolas,monospace}
+.g{fill:#6b6e68}.r{fill:#a8322a}
+.card{fill:#fbfaf6;stroke:#222724;stroke-width:2}
+</style>
+<rect width="1200" height="400" rx="28" fill="#f5f3ed"/>
+<text x="60" y="72" font-size="18" letter-spacing="3" fill="#6b6e68" font-weight="700">FOUR HOOKS, NO BABYSITTING</text>
+<g font-size="20">
+  <rect x="60" y="104" width="252" height="252" rx="16" class="card"/>
+  <text x="84" y="146" class="m r" font-size="17">SessionStart</text>
+  <text x="84" y="186" font-weight="700">Starts where</text>
+  <text x="84" y="212" font-weight="700">you left off</text>
+  <text x="84" y="256" class="g" font-size="18">Prints the board's</text>
+  <text x="84" y="280" class="g" font-size="18">"context for next</text>
+  <text x="84" y="304" class="g" font-size="18">session" and lanes.</text>
+
+  <rect x="336" y="104" width="252" height="252" rx="16" fill="#fbfaf6" stroke="#a8322a" stroke-width="3"/>
+  <text x="360" y="146" class="m r" font-size="17">PreToolUse · Bash</text>
+  <text x="360" y="186" font-weight="700">Stops one-way</text>
+  <text x="360" y="212" font-weight="700">doors</text>
+  <text x="360" y="256" class="g" font-size="18">Force push, hard reset,</text>
+  <text x="360" y="280" class="g" font-size="18">rm -rf on home, piping</text>
+  <text x="360" y="304" class="g" font-size="18">a download into a shell.</text>
+  <text x="360" y="328" class="g" font-size="18">Blocks if it cannot read.</text>
+
+  <rect x="612" y="104" width="252" height="252" rx="16" class="card"/>
+  <text x="636" y="146" class="m r" font-size="17">PreCompact</text>
+  <text x="636" y="186" font-weight="700">Saves the board</text>
+  <text x="636" y="212" font-weight="700">before memory fades</text>
+  <text x="636" y="256" class="g" font-size="18">Snapshots TODO.md and</text>
+  <text x="636" y="280" class="g" font-size="18">notes it in today's log</text>
+  <text x="636" y="304" class="g" font-size="18">before compaction.</text>
+
+  <rect x="888" y="104" width="252" height="252" rx="16" class="card"/>
+  <text x="912" y="146" class="m r" font-size="17">Stop</text>
+  <text x="912" y="186" font-weight="700">Counts claims</text>
+  <text x="912" y="212" font-weight="700">without proof</text>
+  <text x="912" y="256" class="g" font-size="18">Logs any "done" reply</text>
+  <text x="912" y="280" class="g" font-size="18">with no STATUS line.</text>
+  <text x="912" y="304" class="g" font-size="18">Never blocks.</text>
+</g>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="484" viewBox="0 0 960 484" role="img" aria-label="setup.sh output">
+<rect width="960" height="484" rx="16" fill="#1d201c"/>
+<circle cx="28" cy="28" r="7" fill="#f87171"/><circle cx="50" cy="28" r="7" fill="#fbbf24"/><circle cx="72" cy="28" r="7" fill="#86efac"/>
+<text x="480.0" y="33" text-anchor="middle" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="14" fill="#9a9c92">setup.sh</text>
+<text x="28" y="80" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#fbbf77" xml:space="preserve">$ ./setup.sh ~/my-work --link-skills</text>
+<text x="28" y="106" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">Linking skills (links, so &#x27;git pull&#x27; in this repo updates them):</text>
+<text x="28" y="132" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">  linked ~/.claude/skills/eod</text>
+<text x="28" y="158" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">  linked ~/.claude/skills/evidence-loop</text>
+<text x="28" y="184" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">  linked ~/.claude/skills/handoff</text>
+<text x="28" y="210" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">  linked ~/.claude/skills/job-packet</text>
+<text x="28" y="236" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve"></text>
+<text x="28" y="262" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#86efac" xml:space="preserve">AI Work OS is ready in ~/my-work</text>
+<text x="28" y="288" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">  16 file(s) copied, 0 existing file(s) kept</text>
+<text x="28" y="314" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve"></text>
+<text x="28" y="340" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#9a9c92" xml:space="preserve">Next:</text>
+<text x="28" y="366" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">  1. Open ~/my-work/AGENTS.md and fill in the &lt;angle brackets&gt; (5 minutes).</text>
+<text x="28" y="392" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">  2. Put your first outcome on memory/TODO.md.</text>
+<text x="28" y="418" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">  3. Start Claude Code in that folder and say &quot;what now&quot;.</text>
+<text x="28" y="444" font-family="SF Mono,Menlo,Consolas,monospace" font-size="16" fill="#ece9e0" xml:space="preserve">  Optional: ./install-skills.sh to see recommended third-party skills.</text>
+</svg>
