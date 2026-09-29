@@ -9,6 +9,9 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 | `packs/core/` | `aiwos-core` | `evidence-loop`, `job-packet`, `handoff`, `eod`, `onboard`, `what-now` — start here |
 | `packs/business/` | `aiwos-business` | `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop` — drafts only, nothing sends |
 | `packs/thinking/` | `aiwos-thinking` | `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus` |
+| `packs/marketing/` | `aiwos-marketing` | `gbp-posts`, `follow-up-drafts`, `content-from-real-work` — drafts only, nothing posts or sends |
+| `packs/web/` | `aiwos-web` | `site-loop` — brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy; never runs a production deploy |
+| `packs/video/` | `aiwos-video` | `video-brief` plus `scripts/check-captions.py`, a lint for common SRT/VTT caption mistakes |
 
 ## Adding a new pack
 
@@ -65,3 +68,27 @@ Seven thinking tools the author used privately before this release. Each was che
 | stochastic-multi-agent-consensus | A known community technique with public prior art (for example `KENAN-LABS/stochastic-consensus`) | Clean-room version of the general technique; no text copied; the skill credits the pattern as community prior art |
 
 Test fixtures use made-up names and correctly shaped but fake Malaysian IC, phone and bank numbers. None are real people's data.
+
+## Marketing pack
+
+Adapted from the same free [dainer-ai.biz library](https://dainer-ai.biz/library) as the business pack, plus one generic authored method.
+
+| Skill | What it does |
+|---|---|
+| gbp-posts | Turns real finished jobs into Google Business Profile post drafts, following Google's own post rules. No invented reviews, ratings or offers. Never posts. |
+| follow-up-drafts | Checks a quote list against stop rules, then drafts one useful follow-up per customer who is due. Never sends. |
+| content-from-real-work | A generic method: turns one sanitised real job into a LinkedIn/X/blog draft plus shorter repurposed versions. Method only — no private personal-brand voice text. |
+
+## Web pack
+
+One skill: `site-loop`, sourced from the library guide "AI-assisted visual QA: Playwright captures at phone and desktop, light and dark" and this repo's own `evidence-loop` template. Runs brief → build → local preview → captures (phone/desktop × light/dark) → console-error check → preview deploy, and stops there — it never runs a production deploy, changes a live domain, or merges to a production branch.
+
+## Video pack
+
+`video-brief` turns one real job into a 30–60s script, shot list, on-screen text and caption rules, then hands off to a video builder (HyperFrames is the linked default — see `docs/third-party-skills.md`). It never renders or publishes video itself.
+
+`scripts/check-captions.py` (beta) is a deterministic lint for common SRT/WebVTT caption mistakes. It is not a complete WebVTT validator: for a full format check, also play the file in your video tool or run it through a dedicated validator. It checks: malformed cue blocks, timestamp ranges, timing overlaps, a cue ending before it starts, characters per line, lines per cue, and reading speed (characters/second). `tests/test-captions.sh` runs it against must-pass and must-fail fixtures under `tests/video/` (91 assertions across 65 fixtures: 15 must-pass and 50 must-fail files, plus 26 diagnostic-message assertions; character counts strip real caption tags only (<i>, <b>, <u>, <c.x>, <v>, <lang>, <ruby>, <rt>, <font>, timestamp tags) and decode character references; a plain < or > in the text is counted). Lines break only at CR, LF or CRLF, as the WebVTT spec says, timing lines must be plain ASCII (a non-breaking space fails), the arrow needs a space on both sides, and anything after the end time other than a valid WebVTT cue setting (vertical, line, position, size, align, region with allowed values: percentages 0-100, whole line numbers, no repeats) is an error. It fails closed: any line that looks like a timing line (two clock times, or a clock time next to an arrow) inside the WEBVTT header or a NOTE, STYLE or REGION block is reported as a broken cue, so a NOTE such as "meeting 10:00 to 11:00" also fails; reword it or drop it.
+
+## Third-party links for these three packs
+
+`docs/links.md` has the full table (repo, licence, star count, check date) for HyperFrames, marketingskills, video-use, Remotion (with its 3-employee licence warning), the official Claude playwright/frontend-design/github plugins, and agent-browser and impeccable — all checked live against the GitHub API on 29 September 2026.

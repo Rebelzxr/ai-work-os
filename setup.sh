@@ -2,12 +2,12 @@
 # Set up the AI Work OS in a folder.
 #
 #   ./setup.sh ~/my-work                     copy the template into ~/my-work
-#   ./setup.sh ~/my-work --link-skills        also link every pack's skills (19) into ~/.claude/skills
+#   ./setup.sh ~/my-work --link-skills        also link skills from every pack in packs/ into ~/.claude/skills
 #   ./setup.sh ~/my-work --link-skills --codex   and into the Codex skills paths
 #   ./setup.sh ~/my-work --link-skills --pack core          link only the core pack's skills
 #   ./setup.sh ~/my-work --link-skills --pack core,business link two packs' skills (comma-separated)
 #   ./setup.sh ~/my-work --link-skills --pack core --pack business   same as above, repeated flags
-#                                              (default with no --pack: every pack — core, business, thinking)
+#                                              (default with no --pack: every pack in packs/)
 #   ./setup.sh ~/my-work --force              overwrite template files that already exist
 #                                              (an existing skill folder with the same name is
 #                                              moved to skills-backup/, never deleted)

@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-video",
+  "displayName": "AIW-OS Video",
+  "version": "2.1.0",
+  "description": "video-brief: turn a real job into a 30-60s script, shot list, on-screen text and caption rules, ready to hand to a video builder. Plus check-captions.py, a deterministic SRT/VTT lint.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["video", "captions", "script", "shot-list"]
+}

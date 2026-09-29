@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:02,500
+Enquiries piled up overnight.
+
+2
+00:00:02,600 --> 00:00:05,200
+A five-minute morning sort
+fixed it for good.
+
+3
+00:00:05,300 --> 00:00:08,000
+Nothing left unsorted by 9am.

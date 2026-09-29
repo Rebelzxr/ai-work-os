@@ -1,0 +1,3 @@
+1
+00:00:01,000 --> 00:00:02,000
+Keep temperature < 30°C and pressure > 10 bar.

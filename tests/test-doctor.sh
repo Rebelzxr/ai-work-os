@@ -16,10 +16,10 @@ ok '[ "$rc_good" -eq 0 ]' "doctor exits 0 on a workspace with hooks wired"
 ok 'printf "%s" "$out_good" | grep -q "PASS  Claude Code hooks wired"' "doctor reports the wired hooks as PASS"
 ok '! printf "%s" "$out_good" | grep -qE "^FIX"' "no FIX line on a good workspace"
 
-# doctor also reports the Codex skills paths and checks all 19 skills, not just core
-ok 'printf "%s" "$out_good" | grep -q "~/.claude/skills: all 19 aiwos skills linked"' "doctor checks all 19 skills in ~/.claude/skills, not just the 6 core ones"
-ok 'printf "%s" "$out_good" | grep -q "~/.agents/skills (Codex, documented path): all 19 aiwos skills linked"' "doctor reports the documented Codex skills path"
-ok 'printf "%s" "$out_good" | grep -q "~/.codex/skills (Codex, legacy path): all 19 aiwos skills linked"' "doctor reports the legacy Codex skills path"
+# doctor also reports the Codex skills paths and checks all 24 skills, not just core
+ok 'printf "%s" "$out_good" | grep -q "~/.claude/skills: all 24 aiwos skills linked"' "doctor checks all 24 skills in ~/.claude/skills, not just the 6 core ones"
+ok 'printf "%s" "$out_good" | grep -q "~/.agents/skills (Codex, documented path): all 24 aiwos skills linked"' "doctor reports the documented Codex skills path"
+ok 'printf "%s" "$out_good" | grep -q "~/.codex/skills (Codex, legacy path): all 24 aiwos skills linked"' "doctor reports the legacy Codex skills path"
 
 out_nolink=$(HOME="$TMP/home-nolink" bash "$HERE/doctor.sh" "$TMP/good")
 ok 'printf "%s" "$out_nolink" | grep -q "~/.agents/skills (Codex, documented path): not present"' "doctor warns when the Codex documented skills path does not exist at all"

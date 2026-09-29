@@ -8,7 +8,7 @@ You decide. Agents do the work. Files keep the proof.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-318%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-433%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
@@ -46,7 +46,7 @@ Using Codex as well? Add `--codex` to also link the skills for Codex. Full insta
 
 ## Upgrading from v1
 
-Already running v1 in a workspace? `git pull` in this cloned repo, then re-run `./setup.sh ~/my-work --link-skills` from it (same target folder you used before) to link the new `business` and `thinking` pack skills alongside the ones you already have. It only adds files and links you don't already have — it never overwrites an edited file unless you pass `--force`.
+Already running v1 or an earlier v2 in a workspace? `git pull` in this cloned repo, then re-run `./setup.sh ~/my-work --link-skills` from it (same target folder you used before) to link any new pack's skills alongside the ones you already have. It only adds files and links you don't already have — it never overwrites an edited file unless you pass `--force`.
 
 ## What it gives you
 
@@ -55,11 +55,14 @@ Already running v1 in a workspace? `git pull` in this cloned repo, then re-run `
 - **Job packets and receipts.** Hand work between agents with exact files, a clear finish line and stop conditions. Every finished job leaves a receipt.
 - **Evidence before claims.** Every task-shaped reply ends with `STATUS: VERIFIED`, `UNVERIFIED` or `BROKEN`, backed by the checks that were actually run.
 - **Hooks that stop one-way doors.** Common forms of force pushes, hard resets, deleting your home folder and running a downloaded script wait for your approval. The hook reads a command roughly the way bash does, so a subshell, an `if` block or a line break does not hide it. If the check crashes, it blocks. The full rule list is in [docs/how-it-works.md](docs/how-it-works.md).
-- **19 working skills across three packs.** Install what you need, or all of it:
+- **24 working skills across six packs.** Install what you need, or all of it:
   - `aiwos-core` (6 skills) — `evidence-loop`, `job-packet`, `handoff`, `eod`, plus `onboard` (fills in AGENTS.md and the board for you) and `what-now` (the daily bottleneck, read-only). Start here: `claude plugin install aiwos-core@ai-work-os`.
   - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os`.
   - `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os`.
-  
+  - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts`, `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os`.
+  - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy. Never runs a production deploy: `claude plugin install aiwos-web@ai-work-os`.
+  - `aiwos-video` (1 skill) — `video-brief` plus a caption lint for common mistakes (`packs/video/scripts/check-captions.py`, beta: it catches common SRT/WebVTT mistakes, but it is not a full validator, so still play the file in your video tool before publishing). Never renders or publishes video: `claude plugin install aiwos-video@ai-work-os`.
+
   Each needs `claude plugin marketplace add Rebelzxr/ai-work-os` first. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
 - **A curated list of other people's best skills,** installed from their own repos with credit.
 
@@ -67,7 +70,7 @@ Already running v1 in a workspace? `git pull` in this cloned repo, then re-run `
 
 **Setup** copies the template and links the skills. Running it again never overwrites your edits unless you ask.
 
-<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; v2 links 19 skills): the linked skills, the copied template files, and the next three steps." width="100%"></p>
+<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; current setup links skills from every pack): the linked skills, the copied template files, and the next three steps." width="100%"></p>
 
 **A new session starts where you left off.** The SessionStart hook prints the board's resume block and lanes.
 
@@ -79,7 +82,7 @@ Already running v1 in a workspace? `git pull` in this cloned repo, then re-run `
 
 **Everything is tested,** including tricks to slip a command past the hook and harmless commands that must never be blocked.
 
-<p align="center"><img src="assets/terminal-tests.svg" alt="Test output from v1.0: setup and hook tests passing. v2 adds packs, doctor, onboard and what-now tests (318 in total)." width="100%"></p>
+<p align="center"><img src="assets/terminal-tests.svg" alt="Test output from v1.0: setup and hook tests passing. v2 adds packs, doctor, onboard, what-now and caption-lint tests (433 in total as of v2.1; the image itself predates the marketing/web/video packs, see docs/roadmap.md)." width="100%"></p>
 
 ## Real use
 
@@ -148,7 +151,10 @@ ai-work-os/
 ├── packs/
 │   ├── core/             the aiwos-core plugin (6 skills): .claude-plugin/plugin.json + skills/
 │   ├── business/         the aiwos-business plugin (6 skills): SME drafting skills, nothing sends
-│   └── thinking/         the aiwos-thinking plugin (7 skills): scoping, copy and review tools
+│   ├── thinking/         the aiwos-thinking plugin (7 skills): scoping, copy and review tools
+│   ├── marketing/        the aiwos-marketing plugin (3 skills): GBP posts, follow-ups, content drafts
+│   ├── web/              the aiwos-web plugin (1 skill): site-loop, stops before production
+│   └── video/            the aiwos-video plugin (1 skill): video-brief + a caption lint script
 ├── template/             what lands in your workspace
 │   ├── AGENTS.md         rules every agent reads
 │   ├── CLAUDE.md         Claude Code entry point and lane routing
@@ -159,8 +165,8 @@ ai-work-os/
 │   ├── scripts/hooks/    SessionStart, PreToolUse, PreCompact, Stop
 │   └── .claude/settings.json   hook wiring
 ├── skills/               compatibility symlinks into packs/core/skills/ (v1 clone paths keep working)
-├── docs/                 install, packs, roadmap, how it works, third-party skills, lessons, FAQ
-├── tests/                318 checks for setup, skills, packs, doctor and hooks
+├── docs/                 install, packs, roadmap, how it works, third-party skills, links, connect, lessons, FAQ
+├── tests/                433 checks for setup, skills, packs, doctor, hooks and captions
 └── assets/               the images in this README
 ```
 
@@ -185,6 +191,13 @@ MIT, see [LICENSE](LICENSE). The third-party skills listed above belong to their
 - [impeccable](https://github.com/pbakaus/impeccable) by Paul Bakaus (Apache-2.0)
 - [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) (MIT)
 - [agent-browser](https://github.com/vercel-labs/agent-browser) by Vercel Labs (Apache-2.0)
+- [HyperFrames](https://github.com/heygen-com/hyperframes) (Apache-2.0) — default hand-off target for `aiwos-video`'s `video-brief`
+- [marketingskills](https://github.com/coreyhaines31/marketingskills) by Corey Haines (MIT)
+- [video-use](https://github.com/browser-use/video-use) (MIT)
+- [Remotion skills](https://github.com/remotion-dev/skills) / [Remotion](https://github.com/remotion-dev/remotion) — link only; see [docs/links.md](docs/links.md) for the 3-employee licence warning
+- [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (Apache-2.0 directory: playwright, frontend-design, github plugins)
+
+Full licence and star-count detail for the above, checked live on 29 September 2026: [docs/links.md](docs/links.md).
 
 The working principles draw on ideas from these projects, especially the Karpathy-inspired coding guidelines, superpowers and gstack.
 

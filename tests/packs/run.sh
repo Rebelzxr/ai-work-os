@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Structure, fixture and safety-language checks for packs/business and packs/thinking.
+# Structure, fixture and safety-language checks for packs/business, packs/thinking,
+# packs/marketing, packs/web and packs/video.
 # Exits non-zero on any failure. Prints one line per check.
 set -u
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -12,7 +13,7 @@ trap 'rm -f "$fm_check_tmp"' EXIT
 
 SEND_WORDS_RE='(^|[^a-zA-Z])(send|sends|sending|post|posts|posting|publish|publishes|publishing|deploy|deploys|deploying|pay|pays|paying|delete|deletes|deleting)([^a-zA-Z]|$)'
 
-for pack_dir in packs/business packs/thinking; do
+for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/video; do
   [ -d "$pack_dir/skills" ] || { echo "FAIL: no skills dir in $pack_dir"; fail=1; continue; }
 
   # plugin manifest present

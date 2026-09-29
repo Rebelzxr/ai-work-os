@@ -1,0 +1,16 @@
+WEBVTT - example captions
+Kind: captions
+
+NOTE A comment that is not a cue.
+It has no timing line.
+
+STYLE
+::cue { color: lime; }
+
+REGION
+id:main
+width:80%
+
+intro
+00:00:00.000 --> 00:00:02.000 region:main
+Hello.

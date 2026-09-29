@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-marketing",
+  "displayName": "AIW-OS Marketing",
+  "version": "2.1.0",
+  "description": "Three drafting jobs from real work: Google Business Profile posts, follow-up messages with built-in stop rules, and turning a sanitised real job into shareable content. Drafts only — a person always posts or sends.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["marketing", "content", "google-business", "follow-up", "sme"]
+}

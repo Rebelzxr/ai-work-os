@@ -18,6 +18,10 @@ SKILLS=(
   "ui-ux-pro-max|UI and UX design intelligence: styles, palettes, type pairings|/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill, then /plugin install ui-ux-pro-max@ui-ux-pro-max-skill|https://github.com/nextlevelbuilder/ui-ux-pro-max-skill|MIT"
   "agent-browser|Browser automation CLI for agents: open, click, fill, screenshot|npm install -g agent-browser && agent-browser install|https://github.com/vercel-labs/agent-browser|Apache-2.0"
   "fable-forge|Dainer's website design skill: subject-led direction and render evidence|git clone https://github.com/Rebelzxr/fable-forge.git ~/fable-forge && ~/fable-forge/install.sh|https://github.com/Rebelzxr/fable-forge|Apache-2.0"
+  "hyperframes|HTML to deterministic MP4/video, 21 skills; default hand-off target for packs/video's video-brief (needs Node >=22 and FFmpeg)|claude plugin marketplace add heygen-com/hyperframes && claude plugin install hyperframes@hyperframes|https://github.com/heygen-com/hyperframes|Apache-2.0"
+  "marketingskills|50+ marketing skills (seo-audit, ai-seo, copywriting, social, cold-email, emails, video)|npx skills add coreyhaines31/marketingskills|https://github.com/coreyhaines31/marketingskills|MIT"
+  "second-brain-agent|Dainer's second-brain skill set: digest, compile-wiki, ask-brain, weekly-review|git clone https://github.com/Rebelzxr/second-brain-agent.git ~/second-brain-agent|https://github.com/Rebelzxr/second-brain-agent|MIT"
+  "ai-news-picker|Dainer's daily AI news picker|git clone https://github.com/Rebelzxr/ai-news-picker.git ~/ai-news-picker|https://github.com/Rebelzxr/ai-news-picker|MIT"
 )
 
 field() { printf '%s' "$1" | cut -d'|' -f"$2"; }

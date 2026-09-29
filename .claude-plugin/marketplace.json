@@ -20,6 +20,21 @@
       "name": "aiwos-thinking",
       "source": "./packs/thinking",
       "description": "Seven thinking tools for scoping work, writing copy that lands, and running a goal loop with review built in."
+    },
+    {
+      "name": "aiwos-marketing",
+      "source": "./packs/marketing",
+      "description": "Three drafting jobs from real work: Google Business Profile posts, follow-up messages with stop rules, and turning a sanitised job into shareable content. Drafts only."
+    },
+    {
+      "name": "aiwos-web",
+      "source": "./packs/web",
+      "description": "site-loop: brief, build, local preview, phone+desktop light+dark captures, a console-error check and a preview deploy — stopping before production for you to approve."
+    },
+    {
+      "name": "aiwos-video",
+      "source": "./packs/video",
+      "description": "video-brief turns a real job into a 30-60s script, shot list and caption rules for a video builder, plus a deterministic SRT/VTT caption lint."
     }
   ]
 }

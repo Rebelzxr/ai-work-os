@@ -10,7 +10,7 @@ describes:
      (contains "I approve", "you decide", "your call", or "approve");
   3. else the first row on the board.
 
-This is a reference implementation for the CI fixture check, not the skill
+This is a reference script for the CI fixture check, not the skill
 itself — the skill (an LLM reading the real board) should reach the same
 row on the fixture in tests/fixtures/what-now/.
 

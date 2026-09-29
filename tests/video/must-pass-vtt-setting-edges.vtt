@@ -1,0 +1,7 @@
+WEBVTT
+
+00:00.000 --> 00:02.000 size:100% position:0% line:0 align:end
+hello
+
+00:03.000 --> 00:04.000 line:-2 position:100%,line-right
+bye

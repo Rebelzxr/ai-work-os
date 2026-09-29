@@ -50,6 +50,7 @@ Meaningful privacy, security, money, shared-interface, send or deploy changes ge
 
 - Never print, commit or paste secrets. Read them from the environment or a local file; report only "set" or "not set".
 - These need your explicit approval for the exact command and path: `git push --force`, `git reset --hard`, `git checkout .`, `git clean -fd`, `rm -rf`. Never on `main` without a clear yes.
+- These actions always ask first and need your explicit approval, whether through MCP, a CLI, an API or another tool: **pushing** to any remote branch; **opening a pull request**, **creating an issue** or **commenting** on a public repo; **deploying** a preview or production site (including `vercel --prod`, `wrangler deploy`, or pushing to a production branch that deploys automatically); any **purchase** (domain, add-on, credits); Gmail **send**, **reply** or **forward**; **sending** any Telegram message; a Cloudflare **DNS change or delete**. Reading, drafting and local previewing do not need approval. A connected account or token is not approval to send, spend, publish or delete.
 - Back up shared data before destructive work. For SQLite use `.backup`, never a copy of a live file.
 - Any loop that sends more than ten messages needs every row validated, a hard cap, a preview you approved and a recipient check.
 - Private client data never goes into prompts for other tools, public repos or memory files.

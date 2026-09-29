@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-web",
+  "displayName": "AIW-OS Web",
+  "version": "2.1.0",
+  "description": "The site-loop skill: brief, build, local preview, phone+desktop light+dark captures, a console-error check, and a preview deploy — stopping before production for the human to approve.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["web", "playwright", "qa", "evidence", "screenshots"]
+}

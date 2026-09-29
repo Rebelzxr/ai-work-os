@@ -12,8 +12,9 @@ ok '[ -x "$TMP/work/scripts/hooks/block-dangerous.sh" ]' "hooks executable"
 ok '[ -L "$TMP/home/.claude/skills/evidence-loop" ] && [ -L "$TMP/home/.agents/skills/handoff" ]' "skills linked for Claude and the documented Codex path"
 ok '[ -L "$TMP/home/.codex/skills/handoff" ]' "skills also linked into the legacy Codex path"
 ok '[ -L "$TMP/home/.claude/skills/onboard" ] && [ -L "$TMP/home/.claude/skills/what-now" ]' "onboard and what-now are linked too"
-ok '[ "$(ls "$TMP/home/.claude/skills" | wc -l | tr -d " ")" -eq 19 ]' "default --link-skills links all 19 skills across all three packs"
+ok '[ "$(ls "$TMP/home/.claude/skills" | wc -l | tr -d " ")" -eq 24 ]' "default --link-skills links all 24 skills across all six packs"
 ok '[ -L "$TMP/home/.claude/skills/lead-triage" ] && [ -L "$TMP/home/.claude/skills/goal" ]' "default --link-skills includes business and thinking pack skills, not just core"
+ok '[ -L "$TMP/home/.claude/skills/gbp-posts" ] && [ -L "$TMP/home/.claude/skills/site-loop" ] && [ -L "$TMP/home/.claude/skills/video-brief" ]' "default --link-skills includes marketing, web and video pack skills too"
 
 echo "my edit" > "$TMP/work/AGENTS.md"
 HOME="$TMP/home" bash "$HERE/setup.sh" "$TMP/work" >/dev/null

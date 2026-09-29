@@ -20,7 +20,7 @@ The bottleneck is the one row that is blocking the most other work or is most ov
 2. else a row whose "next action" needs the user specifically (a decision, an approval, a send);
 3. else the first active row on the board.
 
-`<this skill's folder>/scripts/bottleneck.py <board.md>` is a plain-text reference implementation of this same order, used by the CI fixture check — read it if the priority above is ambiguous on a real board.
+`<this skill's folder>/scripts/bottleneck.py <board.md>` is a plain-text reference script of this same order, used by the CI fixture check — read it if the priority above is ambiguous on a real board.
 
 ## Answer format
 

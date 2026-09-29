@@ -1,0 +1,9 @@
+WEBVTT
+
+intro-line
+00:00:00.000 --> 00:00:03.000
+This single caption line is written to be far longer than forty-two characters on purpose.
+
+chapter-2
+00:00:03.100 --> 00:00:05.000
+Short line.
