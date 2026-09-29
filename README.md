@@ -8,7 +8,7 @@ You decide. Agents do the work. Files keep the proof.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-227%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-318%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
@@ -21,9 +21,18 @@ AI agents can write code, research and build all day. The hard part is not getti
 
 This is the operating layer I run my own business on, cleaned up so anyone can use it: one rules file every agent reads, one board, job hand-offs with receipts, evidence before any "done", and four Claude Code hooks that do the babysitting. No server, no account, no subscription. Plain files and a few scripts.
 
-**Needs:** bash, git and python3 (the hooks use it). The hooks run in Claude Code; the rest works with any agent that reads files.
+**Needs:** bash, git and python3 (the hooks use it). The dangerous-command hook runs in Claude Code today; Codex hook wiring is tracked, not shipped yet (see [docs/roadmap.md](docs/roadmap.md)). The rules file, board and skills work with any agent that reads files.
 
 ## Quick start
+
+One command, as a Claude Code plugin:
+
+```bash
+claude plugin marketplace add Rebelzxr/ai-work-os
+claude plugin install aiwos-core@ai-work-os
+```
+
+Or clone it and get the whole workspace (board, `AGENTS.md`, hooks, `dispatch/`) with `setup.sh`:
 
 ```bash
 git clone https://github.com/Rebelzxr/ai-work-os.git
@@ -31,9 +40,13 @@ cd ai-work-os
 ./setup.sh ~/my-work --link-skills
 ```
 
-Then open `~/my-work/AGENTS.md`, replace the `<angle brackets>` with your own details (about five minutes), start Claude Code in `~/my-work` and say **"what now"**.
+Then open `~/my-work/AGENTS.md`, replace the `<angle brackets>` with your own details (about five minutes) — or say **"onboard"** and answer a short interview instead — start Claude Code in `~/my-work`, and say **"what now"**.
 
-Using Codex as well? Add `--codex` to link the skills into `~/.codex/skills` too.
+Using Codex as well? Add `--codex` to also link the skills for Codex. Full install options, including `npx skills add` and the exact Codex skills path: [docs/install.md](docs/install.md).
+
+## Upgrading from v1
+
+Already running v1 in a workspace? `git pull` in this cloned repo, then re-run `./setup.sh ~/my-work --link-skills` from it (same target folder you used before) to link the new `business` and `thinking` pack skills alongside the ones you already have. It only adds files and links you don't already have — it never overwrites an edited file unless you pass `--force`.
 
 ## What it gives you
 
@@ -42,14 +55,19 @@ Using Codex as well? Add `--codex` to link the skills into `~/.codex/skills` too
 - **Job packets and receipts.** Hand work between agents with exact files, a clear finish line and stop conditions. Every finished job leaves a receipt.
 - **Evidence before claims.** Every task-shaped reply ends with `STATUS: VERIFIED`, `UNVERIFIED` or `BROKEN`, backed by the checks that were actually run.
 - **Hooks that stop one-way doors.** Common forms of force pushes, hard resets, deleting your home folder and running a downloaded script wait for your approval. The hook reads a command roughly the way bash does, so a subshell, an `if` block or a line break does not hide it. If the check crashes, it blocks. The full rule list is in [docs/how-it-works.md](docs/how-it-works.md).
-- **Four working skills.** `evidence-loop`, `job-packet`, `handoff` and `eod`.
+- **19 working skills across three packs.** Install what you need, or all of it:
+  - `aiwos-core` (6 skills) — `evidence-loop`, `job-packet`, `handoff`, `eod`, plus `onboard` (fills in AGENTS.md and the board for you) and `what-now` (the daily bottleneck, read-only). Start here: `claude plugin install aiwos-core@ai-work-os`.
+  - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os`.
+  - `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os`.
+  
+  Each needs `claude plugin marketplace add Rebelzxr/ai-work-os` first. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
 - **A curated list of other people's best skills,** installed from their own repos with credit.
 
 ## See it work
 
 **Setup** copies the template and links the skills. Running it again never overwrites your edits unless you ask.
 
-<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh (home path shortened to ~): four skills linked, 16 files copied, and the next three steps." width="100%"></p>
+<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; v2 links 19 skills): the linked skills, the copied template files, and the next three steps." width="100%"></p>
 
 **A new session starts where you left off.** The SessionStart hook prints the board's resume block and lanes.
 
@@ -61,11 +79,11 @@ Using Codex as well? Add `--codex` to link the skills into `~/.codex/skills` too
 
 **Everything is tested,** including tricks to slip a command past the hook and harmless commands that must never be blocked.
 
-<p align="center"><img src="assets/terminal-tests.svg" alt="Test output: setup 14 passed, hooks 213 passed." width="100%"></p>
+<p align="center"><img src="assets/terminal-tests.svg" alt="Test output from v1.0: setup and hook tests passing. v2 adds packs, doctor, onboard and what-now tests (318 in total)." width="100%"></p>
 
 ## Real use
 
-This is a cleaned-up copy of the system behind [dainer.ai](https://dainer-ai.vercel.app): its free [library](https://dainer-ai.vercel.app/library), the daily [AI news](https://dainer-ai.vercel.app/news) picker and site releases go through the same board, packets, receipts and STATUS lines. Two agents share the work, Claude and Codex, each owning its own lanes. The private version holds client work, so this public one keeps the method and none of the data.
+This is a cleaned-up copy of the system behind [dainer-ai.biz](https://dainer-ai.biz): its free [library](https://dainer-ai.biz/library), the daily [AI news](https://dainer-ai.biz/news) picker and site releases go through the same board, packets, receipts and STATUS lines. Two agents share the work, Claude and Codex, each owning its own lanes. The private version holds client work, so this public one keeps the method and none of the data.
 
 ## How it works
 
@@ -102,12 +120,12 @@ More in [docs/third-party-skills.md](docs/third-party-skills.md).
 
 - Everything is local: markdown files and small bash and Python scripts in your own folder.
 - The hooks read the command the agent is about to run, or the transcript file on your machine, and only write inside your workspace (`memory/`).
-- Nothing is sent over the network by this repo. `install-skills.sh` prints commands and runs one only when you pass `--run` and confirm.
+- Nothing is sent over the network by this repo, with one exception: `doctor.sh` runs `gh auth status` to check whether GitHub CLI is authenticated, which contacts GitHub — it prints yes/no only, never a token. `install-skills.sh` prints commands and runs one only when you pass `--run` and confirm.
 - The rules tell agents never to print secrets, never to paste private client data into other tools, and to back up before deleting shared data.
 
 ## Limitations
 
-- The hooks need Claude Code. Other agents follow the rules file but are not stopped by the hooks.
+- Codex hook wiring: coming, tracked in [docs/roadmap.md](docs/roadmap.md). Claude Code has the dangerous-command hook today; other agents, including Codex, follow the rules file but are not stopped by a hook yet.
 - The dangerous-command hook is a pattern check, not a sandbox. It catches the common forms of these one-way doors, including inside subshells, `if`/`for`/`case` blocks, `$(...)`, `bash -c`, `eval`, `ssh host '...'` and a script written or downloaded then run in the same command. It does not follow:
   - variables and aliases (`x=rm; $x -rf ~`);
   - code inside Python or Node programs;
@@ -123,8 +141,14 @@ More in [docs/third-party-skills.md](docs/third-party-skills.md).
 
 ```text
 ai-work-os/
+├── .claude-plugin/marketplace.json   one-command plugin install (Claude Code; legacy-compatible with Codex)
 ├── setup.sh              copy the template into your workspace, link the skills
+├── doctor.sh             read-only health check: tools, hooks wired, skills linked
 ├── install-skills.sh     recommended third-party skills, from their own repos
+├── packs/
+│   ├── core/             the aiwos-core plugin (6 skills): .claude-plugin/plugin.json + skills/
+│   ├── business/         the aiwos-business plugin (6 skills): SME drafting skills, nothing sends
+│   └── thinking/         the aiwos-thinking plugin (7 skills): scoping, copy and review tools
 ├── template/             what lands in your workspace
 │   ├── AGENTS.md         rules every agent reads
 │   ├── CLAUDE.md         Claude Code entry point and lane routing
@@ -134,9 +158,9 @@ ai-work-os/
 │   ├── lanes/example/    per-project rules
 │   ├── scripts/hooks/    SessionStart, PreToolUse, PreCompact, Stop
 │   └── .claude/settings.json   hook wiring
-├── skills/               evidence-loop, job-packet, handoff, eod
-├── docs/                 how it works, third-party skills, lessons, FAQ
-├── tests/                227 checks for setup, skills and hooks
+├── skills/               compatibility symlinks into packs/core/skills/ (v1 clone paths keep working)
+├── docs/                 install, packs, roadmap, how it works, third-party skills, lessons, FAQ
+├── tests/                318 checks for setup, skills, packs, doctor and hooks
 └── assets/               the images in this README
 ```
 
@@ -167,6 +191,6 @@ The working principles draw on ideas from these projects, especially the Karpath
 ## About
 
 Built by Dainer in Kuala Lumpur. I build with AI and share what's worth teaching from real work and business.
-Free library: [dainer-ai.vercel.app/library](https://dainer-ai.vercel.app/library) · Site: [dainer-ai.vercel.app](https://dainer-ai.vercel.app)
+Free library: [dainer-ai.biz/library](https://dainer-ai.biz/library) · Site: [dainer-ai.biz](https://dainer-ai.biz)
 
 Related: [second-brain-agent](https://github.com/Rebelzxr/second-brain-agent) (notes that agents can use) · [ai-news-picker](https://github.com/Rebelzxr/ai-news-picker) · [fable-forge](https://github.com/Rebelzxr/fable-forge)

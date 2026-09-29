@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-thinking",
+  "displayName": "AIW-OS Thinking",
+  "description": "Seven thinking tools for scoping work, writing copy that lands, and running a goal loop with review built in.",
+  "version": "2.0.0",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["prompting", "copywriting", "planning", "review"]
+}

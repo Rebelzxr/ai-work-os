@@ -1,0 +1,14 @@
+{
+  "name": "aiwos-core",
+  "displayName": "AI Work OS — Core",
+  "version": "2.0.0",
+  "description": "Core AI Work OS skills: evidence loop, job packets, handoffs, end-of-day logging, onboarding and what-now.",
+  "author": {
+    "name": "Rebelzxr",
+    "url": "https://github.com/Rebelzxr/ai-work-os"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["work-os", "business", "onboarding", "evidence", "receipts"]
+}

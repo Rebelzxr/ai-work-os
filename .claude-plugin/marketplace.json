@@ -1,0 +1,25 @@
+{
+  "name": "ai-work-os",
+  "description": "AI Work OS: an operating layer of rules, boards, receipts and skill packs for Claude Code and Codex.",
+  "owner": {
+    "name": "Rebelzxr",
+    "url": "https://github.com/Rebelzxr/ai-work-os"
+  },
+  "plugins": [
+    {
+      "name": "aiwos-core",
+      "source": "./packs/core",
+      "description": "Evidence loop, job packets, handoffs, EOD logging, onboarding and what-now. Start here."
+    },
+    {
+      "name": "aiwos-business",
+      "source": "./packs/business",
+      "description": "Six day-one jobs for a Malaysian SME owner: sort leads, draft WhatsApp replies, build quotes, and check anything before it goes into AI or out to a customer. Drafts only."
+    },
+    {
+      "name": "aiwos-thinking",
+      "source": "./packs/thinking",
+      "description": "Seven thinking tools for scoping work, writing copy that lands, and running a goal loop with review built in."
+    }
+  ]
+}

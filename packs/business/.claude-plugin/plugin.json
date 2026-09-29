@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-business",
+  "displayName": "AIW-OS Business",
+  "description": "Six day-one jobs for a Malaysian SME owner: sort leads, draft WhatsApp replies, build quotes, and check anything before it goes into AI or out to a customer. Drafts only — a person always sends.",
+  "version": "2.0.0",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["business", "sme", "malaysia", "whatsapp", "quotes", "privacy"]
+}
