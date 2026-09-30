@@ -5,6 +5,14 @@ description: "Turn short notes about real finished jobs into a batch of honest G
 
 # Google Business Profile posts
 
+## Start safely
+
+On the first run, use only made-up examples (including any prices, policies and voice samples); label the output **practice, not for sending**. Do not ask for real customer messages yet.
+
+Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
+
+Optional dependency: `safe-to-paste` belongs to `aiwos-business`. If installed, use it only as a second check of the locally cleaned text. If missing, manually check the cleaned text for the same identifiers before drafting; stop and ask for local cleaning if anything remains. It is not an upload barrier.
+
 Adapted from Dainer's published library guide "A month of Google Business Profile posts from jobs you really did" (<https://dainer-ai.biz/library>), written for a local service business whose Google Business Profile rarely gets updated.
 
 ## What this produces
@@ -17,7 +25,7 @@ For a handful of real, recently finished jobs: one honest Google Business Profil
 - For each job, whether a photo exists and whether the owner has permission to use it (never post a photo with a face, house number or car plate without clear permission).
 - Anything that must not be mentioned for a job (price, a competitor's brand, a customer's identifying detail).
 
-**Privacy first:** remove customer names, phone numbers, addresses and plate numbers before pasting any job note here. If you installed the optional `aiwos-business` pack, use its `safe-to-paste` skill to help with this check.
+**Privacy first:** remove customer names, phone numbers, addresses and plate numbers before pasting any job note here. If you installed the optional `aiwos-business` pack, use its `safe-to-paste` skill as a second check after local cleaning.
 
 ## Steps
 

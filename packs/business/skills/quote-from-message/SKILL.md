@@ -1,9 +1,17 @@
 ---
 name: quote-from-message
-description: "Turn a customer's WhatsApp or email request into a draft quote built only from the business's own price list — line items, assumptions, open questions and a total to check. Use when the owner pastes a customer request and a price list and wants a first-draft quote. Never sends the quote."
+description: "Turn a customer's WhatsApp or email request into a draft quote built only from the business's own price list — line items, assumptions, open questions and a total to check. Use when the owner provides a locally cleaned customer request and a price list and wants a first-draft quote. Never sends the quote."
 ---
 
 # Quote from message
+
+## Start safely
+
+On the first run, use only made-up examples (including any prices, policies and voice samples); label the output **practice, not for sending**. Do not ask for real customer messages yet.
+
+Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
+
+Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
 
 Adapted from Dainer's published library guide "Turn a customer message into a draft quote" (<https://dainer-ai.biz/library>).
 

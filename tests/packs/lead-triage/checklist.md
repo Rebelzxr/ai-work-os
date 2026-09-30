@@ -6,3 +6,6 @@
 - [ ] Enquiry 4 ("not ready yet") is sorted as Later, not Hot.
 - [ ] No draft reply states a price, date or availability that was not given in the enquiry or a supplied price list.
 - [ ] Output never says the message was "sent" or "replied to" — only "drafted."
+
+- [ ] First run uses made-up examples; later input is cleaned locally before any AI receives it.
+- [ ] Local cleaning removes names, IC, phone, bank details and addresses; any AI privacy review is a second check only.

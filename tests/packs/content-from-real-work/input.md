@@ -1,5 +1,7 @@
 # content-from-real-work test input
 
+All data below is made up for practice. For real input, clean locally first before pasting into any AI.
+
 Sanitised work note (fictional test scenario): "Local service business (unnamed), WhatsApp enquiries were getting missed overnight because nobody sorted them until midday. Built a simple morning sort so enquiries land in Hot/Warm/Later before the owner opens the phone."
 
 No measured result, time spent sorting, customer quote or owner lesson is supplied. Ask the owner for missing details or leave a [placeholder]; the drafts may describe the supplied method alone.

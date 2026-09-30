@@ -5,19 +5,27 @@ description: "Sort new customer enquiries (WhatsApp, website form, email, social
 
 # Lead triage
 
+## Start safely
+
+On the first run, use only made-up examples (including any prices, policies and voice samples); label the output **practice, not for sending**. Do not ask for real customer messages yet.
+
+Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
+
+Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
+
 Adapted from Dainer's published library guide "The Lead Triage Desk" (<https://dainer-ai.biz/library>), written for a Malaysian SME owner drowning in enquiries across WhatsApp, a website form, Facebook/Instagram DMs and email.
 
 ## What this produces
 
-For a batch of raw enquiries: each one sorted into a category, a one-line reason, and a draft reply for the categories that get one. Nothing is sent. The owner reads every draft, edits if needed, and sends it themselves.
+For a batch of locally cleaned enquiries: each one sorted into a category, a one-line reason, and a draft reply for the categories that get one. Nothing is sent. The owner reads every draft, edits if needed, and sends it themselves.
 
 ## Before you start
 
-- 10–20 recent enquiries, pasted in.
+- Made-up enquiries for the first run; on later runs, 10–20 locally cleaned enquiries.
 - The business's price list and service area (rough is fine — point the `quote-from-message` skill's price file at this if one exists).
 - Categories, if the owner already has some. Default to Hot / Warm / Later / Unclear.
 
-**Privacy first:** run every enquiry through the `safe-to-paste` skill's check before it goes any further — replace names, phone numbers, addresses, IC numbers, order numbers and bank details with labels like "Customer A", "Area B", "Order 1".
+**Second check:** after local cleaning, use `safe-to-paste` to review the minimum text needed for this draft.
 
 ## Steps
 

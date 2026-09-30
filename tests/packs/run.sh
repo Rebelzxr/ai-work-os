@@ -7,6 +7,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
 fail=0
+pass=0
+passed() { echo "PASS: $1"; pass=$((pass+1)); }
 skills_checked=0
 fm_check_tmp="$(mktemp)"
 trap 'rm -f "$fm_check_tmp"' EXIT
@@ -22,7 +24,7 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
     fail=1
   else
     python3 -c "import json,sys; json.load(open('$pack_dir/.claude-plugin/plugin.json'))" \
-      && echo "PASS: $pack_dir/.claude-plugin/plugin.json is valid JSON" \
+      && passed "$pack_dir/.claude-plugin/plugin.json is valid JSON" \
       || { echo "FAIL: $pack_dir/.claude-plugin/plugin.json is not valid JSON"; fail=1; }
   fi
 
@@ -39,10 +41,16 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
 
     # frontmatter check (reuses the repo's existing checker)
     if python3 tests/check-frontmatter.py "$skill_md" >"$fm_check_tmp" 2>&1; then
-      echo "PASS: $name frontmatter OK"
+      passed "$name frontmatter OK"
     else
       echo "FAIL: $name frontmatter"; cat "$fm_check_tmp"
       fail=1
+    fi
+
+    if python3 tests/check-skill-contracts.py "$skill_md"; then
+      passed "$name script paths, local privacy and optional dependencies"
+    else
+      echo "FAIL: $name skill contracts"; fail=1
     fi
 
     # safety-language lint: if SKILL.md mentions send/post/publish/deploy/pay/delete,
@@ -50,7 +58,7 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
     body_lower="$(tr '[:upper:]' '[:lower:]' < "$skill_md")"
     if echo "$body_lower" | grep -qE "$SEND_WORDS_RE"; then
       if echo "$body_lower" | grep -qi "## human approval"; then
-        echo "PASS: $name has send/post/publish/deploy/pay/delete language AND a Human approval section"
+        passed "$name has send/post/publish/deploy/pay/delete language AND a Human approval section"
       else
         echo "FAIL: $name mentions a send/post/publish/deploy/pay/delete word but has no '## Human approval' section"
         fail=1
@@ -62,10 +70,11 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
     # fixture presence
     fixture_dir="tests/packs/$name"
     if [ -f "$fixture_dir/input.md" ] && [ -f "$fixture_dir/checklist.md" ]; then
-      echo "PASS: $name has input.md and checklist.md fixtures"
+      passed "$name has input.md and checklist.md fixtures"
     else
       echo "FAIL: $name missing tests/packs/$name/input.md or checklist.md"
       fail=1
+      continue
     fi
 
     # Structural check on the fixture content itself (not just file presence).
@@ -74,7 +83,7 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
     # a real regex test. This check is the one thing here that can still fail for real:
     # a placeholder or emptied-out fixture trips it.
     input_chars=$(wc -c < "$fixture_dir/input.md" 2>/dev/null | tr -d ' ')
-    checklist_items=$(grep -c '^- \[ \]' "$fixture_dir/checklist.md" 2>/dev/null || echo 0)
+    checklist_items=$(grep -c '^- \[ \]' "$fixture_dir/checklist.md")
     if [ "${input_chars:-0}" -lt 20 ]; then
       echo "FAIL: $name tests/packs/$name/input.md is empty or a placeholder (${input_chars:-0} chars, need >=20)"
       fail=1
@@ -82,9 +91,17 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
       echo "FAIL: $name tests/packs/$name/checklist.md has only $checklist_items checkbox item(s), need >=3"
       fail=1
     else
-      echo "PASS: $name fixture has a real input (${input_chars} chars) and $checklist_items checklist items"
+      passed "$name fixture has a real input (${input_chars} chars) and $checklist_items checklist items"
     fi
   done
+done
+
+for skill_md in packs/core/skills/*/SKILL.md; do
+  if python3 tests/check-skill-contracts.py "$skill_md"; then
+    passed "$(basename "$(dirname "$skill_md")") script paths stay inside core"
+  else
+    echo "FAIL: $skill_md script paths"; fail=1
+  fi
 done
 
 echo "---"
@@ -93,7 +110,7 @@ echo "Skills checked: $skills_checked"
 # Deterministic regex test for safe-to-paste
 if [ -f tests/packs/safe-to-paste/test_patterns.py ]; then
   if python3 tests/packs/safe-to-paste/test_patterns.py; then
-    echo "PASS: safe-to-paste deterministic regex test"
+    passed "safe-to-paste deterministic regex test"
   else
     echo "FAIL: safe-to-paste deterministic regex test"
     fail=1
@@ -104,8 +121,10 @@ else
 fi
 
 if [ "$fail" -ne 0 ]; then
+  echo "packs: $pass passed, failures found"
   echo "RESULT: FAIL"
   exit 1
 fi
+echo "packs: $pass passed, 0 failed (structural checks plus sample regex test)"
 echo "RESULT: PASS"
 exit 0

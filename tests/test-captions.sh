@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Unit tests for packs/video/scripts/check-captions.py: must-pass and must-fail
+# Unit tests for the portable video-brief caption checker: must-pass and must-fail
 # SRT/VTT fixtures under tests/video/, same style as tests/test-hooks.sh.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SCRIPT="$HERE/packs/video/scripts/check-captions.py"
+SCRIPT="$HERE/packs/video/skills/video-brief/scripts/check-captions.py"
 FIX="$HERE/tests/video"
 pass=0; fail=0
 
@@ -122,6 +122,36 @@ check_contains "$FIX/must-fail-vtt-region-after-cue.vtt" "REGION block after a c
 
 ok 1 "$FIX/must-fail-srt-vtt-header.srt" "SRT extension cannot be overridden by a VTT header"
 check_contains "$FIX/must-fail-srt-vtt-header.srt" "missing or malformed cue index" "SRT format bypass names the missing index"
+
+ok 1 "$FIX/must-fail-srt-control-text.srt" "ASCII control characters in SRT text fail"
+check_contains "$FIX/must-fail-srt-control-text.srt" "ASCII control character" "SRT controls name the text problem"
+ok 1 "$FIX/must-fail-vtt-control-text.vtt" "ASCII controls inside VTT markup fail"
+check_contains "$FIX/must-fail-vtt-control-text.vtt" "ASCII control character" "VTT controls name the text problem"
+ok 0 "$FIX/must-pass-srt-text-whitespace.srt" "SRT tabs, CRLF and Unicode text pass"
+ok 0 "$FIX/must-pass-vtt-text-whitespace.vtt" "VTT tabs, newlines and Unicode text pass"
+
+TMP="$(mktemp -d)"
+trap 'rm -r "$TMP"' EXIT
+# Exercise every forbidden byte through the CLI, not only representative fixtures.
+python3 - "$TMP" <<'PY'
+import pathlib
+import sys
+root = pathlib.Path(sys.argv[1])
+for code in [*range(9), 11, 12, *range(14, 32), 127]:
+    (root / f"control-{code}.srt").write_text("1\n00:00:01,000 --> 00:00:05,000\nHi" + chr(code) + "there\n")
+PY
+for fixture in "$TMP"/control-*.srt; do
+  ok 1 "$fixture" "rejects ${fixture##*/} in cue text"
+done
+
+# Only the skill folder is copied; no repository layout exists at the destination.
+cp -R "$HERE/packs/video/skills/video-brief" "$TMP/installed video-brief"
+SCRIPT="$TMP/installed video-brief/scripts/check-captions.py"
+ok 0 "$FIX/must-pass.vtt" "standalone installed skill checker passes valid captions"
+ok 1 "$FIX/must-fail-srt-control-text.srt" "standalone installed skill checker rejects controls"
+SCRIPT="$HERE/packs/video/scripts/check-captions.py"
+ok 0 "$FIX/must-pass.srt" "legacy repository entry point remains compatible"
+ok 1 "$FIX/must-fail-srt-control-text.srt" "legacy entry point uses the current checker"
 
 echo "---"
 echo "$pass passed, $fail failed"

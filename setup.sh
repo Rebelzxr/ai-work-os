@@ -2,15 +2,14 @@
 # Set up the AI Work OS in a folder.
 #
 #   ./setup.sh ~/my-work                     copy the template into ~/my-work
-#   ./setup.sh ~/my-work --link-skills        also link skills from every pack in packs/ into ~/.claude/skills
+#   ./setup.sh ~/my-work --link-skills        also link the five default packs into the workspace .claude/skills
 #   ./setup.sh ~/my-work --link-skills --codex   and into the Codex skills paths
 #   ./setup.sh ~/my-work --link-skills --pack core          link only the core pack's skills
 #   ./setup.sh ~/my-work --link-skills --pack core,business link two packs' skills (comma-separated)
 #   ./setup.sh ~/my-work --link-skills --pack core --pack business   same as above, repeated flags
-#                                              (default with no --pack: every pack in packs/)
-#   ./setup.sh ~/my-work --force              overwrite template files that already exist
-#                                              (an existing skill folder with the same name is
-#                                              moved to skills-backup/, never deleted)
+#                                              (default: core, business, marketing, web, video; thinking is optional)
+#   ./setup.sh ~/my-work --force              back up, then replace existing template files and selected skill links
+#                                              (originals are kept under .aiwos-backups/ in the workspace)
 #   ./setup.sh ~/my-work --upgrade            dry run: show what a normal run would change to an
 #                                              existing workspace, write nothing, never overwrite
 #
@@ -68,29 +67,53 @@ if [ -n "$UPGRADE" ]; then
   while IFS= read -r -d '' src; do
     rel="${src#"$HERE/template/"}"
     dest="$TARGET/$rel"
-    if [ ! -e "$dest" ]; then
+    if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
       echo "  would add:    $rel"; would_add=$((would_add+1))
+      diff -u -L "$rel (missing)" -L "$rel (template)" /dev/null "$src" || [ "$?" -eq 1 ]
     elif ! cmp -s "$src" "$dest"; then
       echo "  would update: $rel (your copy differs from the template)"; would_update=$((would_update+1))
+      if [ -f "$dest" ]; then
+        diff -u -L "$rel (workspace)" -L "$rel (template)" "$dest" "$src" || [ "$?" -eq 1 ]
+      else
+        echo "    Existing path is a directory or dangling link; review it manually."
+      fi
     else
       unchanged=$((unchanged+1))
     fi
   done < <(find "$HERE/template" -type f -print0)
   echo
   echo "$would_add file(s) would be added, $would_update would be offered as an update, $unchanged already match."
-  [ "$would_update" -gt 0 ] && echo "Nothing was changed. Review each one yourself; re-run with --force to overwrite (this also overwrites files you edited by hand)."
+  [ "$would_update" -gt 0 ] && echo "Nothing was changed. Merge the changes you want into your own files; a normal setup run only adds missing files."
   exit 0
 fi
 
 mkdir -p "$TARGET"
 TARGET="$(cd "$TARGET" && pwd)"
 copied=0 kept=0
+BACKUP=""
+backup_item() { # existing path, relative backup path
+  if [ -z "$BACKUP" ]; then
+    local base="$TARGET/.aiwos-backups/$(date +%Y%m%d-%H%M%S)" suffix=0
+    BACKUP="$base"
+    while [ -e "$BACKUP" ] || [ -L "$BACKUP" ]; do
+      suffix=$((suffix+1)); BACKUP="$base-$suffix"
+    done
+    mkdir -p "$BACKUP"
+    echo "Backups (original files and links): $BACKUP"
+  fi
+  mkdir -p "$(dirname "$BACKUP/$2")"
+  mv "$1" "$BACKUP/$2"
+  echo "  backed up: $1 -> $BACKUP/$2"
+}
 
 while IFS= read -r -d '' src; do
   rel="${src#"$HERE/template/"}"
   dest="$TARGET/$rel"
   mkdir -p "$(dirname "$dest")"
-  if [ -e "$dest" ] && [ -z "$FORCE" ]; then kept=$((kept+1)); continue; fi
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    if [ -z "$FORCE" ]; then kept=$((kept+1)); continue; fi
+    backup_item "$dest" "template/$rel"
+  fi
   cp "$src" "$dest"; copied=$((copied+1))
 done < <(find "$HERE/template" -type f -print0)
 chmod +x "$TARGET"/scripts/hooks/*.sh 2>/dev/null || true
@@ -101,19 +124,18 @@ link_into() { # dest_dir
   if [ "${#PACKS[@]}" -gt 0 ]; then
     for p in "${PACKS[@]}"; do src_dirs+=("$HERE/packs/$p/skills"); done
   else
-    # Default: every pack. Glob packs/*/skills directly rather than the top-level
-    # skills/ symlinks, so setup.sh works on Windows/Git Bash where those symlinks
-    # may not resolve (see docs/roadmap.md). The skills/ symlinks stay in the repo
-    # for v1 compatibility, but nothing here requires them.
-    for d in "$HERE"/packs/*/skills; do [ -d "$d" ] && src_dirs+=("$d"); done
+    # Thinking tools are an explicit choice, separate from the SME starting set.
+    for p in core business marketing web video; do src_dirs+=("$HERE/packs/$p/skills"); done
   fi
   for glob_dir in "${src_dirs[@]}"; do
     for skill in "$glob_dir"/*/; do
       [ -e "$skill" ] || continue
       name="$(basename "$skill")"
-      if [ -e "$1/$name" ] && [ -z "$FORCE" ]; then echo "  kept existing $1/$name"; continue; fi
-      if [ -L "$1/$name" ]; then rm "$1/$name"; echo "  replaced the existing link $1/$name"
-      elif [ -e "$1/$name" ]; then bak="$1-backup/$name-$(date +%Y%m%d-%H%M%S)"; mkdir -p "$1-backup"; mv "$1/$name" "$bak"; echo "  moved your existing $name to $bak"
+      if [ -e "$1/$name" ] || [ -L "$1/$name" ]; then
+        if [ -z "$FORCE" ]; then echo "  kept existing $1/$name"; continue; fi
+        # Repeated --pack values must not replace the same link twice.
+        if [ -L "$1/$name" ] && [ "$(readlink "$1/$name")" = "${skill%/}" ]; then continue; fi
+        backup_item "$1/$name" "skills/${1#"$TARGET/"}/$name"
       fi
       ln -s "${skill%/}" "$1/$name"; echo "  linked $1/$name"
     done
@@ -121,24 +143,18 @@ link_into() { # dest_dir
 }
 if [ -n "$LINK" ]; then
   echo "Linking skills (links, so 'git pull' in this repo updates them):"
-  link_into "$HOME/.claude/skills"
+  link_into "$TARGET/.claude/skills"
   if [ -n "$CODEX" ]; then
-    # OpenAI's docs (learn.chatgpt.com/docs/build-skills) list the user scope as
-    # $HOME/.agents/skills; that is now the primary path. v1 of this repo linked
-    # into $HOME/.codex/skills instead, which is not in the current docs, so we
-    # keep linking there too rather than silently dropping anyone whose Codex
-    # install still reads it.
-    link_into "$HOME/.agents/skills"
-    link_into "$HOME/.codex/skills"
-    echo "  Codex note: linked into ~/.agents/skills (the documented path) and ~/.codex/skills (kept for older Codex installs)."
-    echo "  Run ./doctor.sh after this to see what is linked in each folder."
+    link_into "$TARGET/.agents/skills"
+    echo "  Codex skills linked into the workspace .agents/skills."
   fi
+  echo "  Run ./doctor.sh \"$TARGET\" to check this workspace."
 fi
 
 cat <<EOF
 
 AI Work OS is ready in $TARGET
-  $copied file(s) copied, $kept existing file(s) kept$([ -z "$FORCE" ] && [ "$kept" -gt 0 ] && echo " (use --force to overwrite)")
+  $copied file(s) copied, $kept existing file(s) kept
 
 Next:
   1. Open $TARGET/AGENTS.md and fill in the <angle brackets> (5 minutes), or start Claude Code there and say "onboard".

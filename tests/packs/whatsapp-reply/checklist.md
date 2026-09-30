@@ -5,3 +5,6 @@
 - [ ] Draft is in BM, English, or a natural mix matching the customer's own language — not pure formal English.
 - [ ] Draft includes a note to the owner flagging both gaps (Sunday closed, no discount program) rather than silently working around them.
 - [ ] Output is clearly a draft for the owner to send, never phrased as already sent.
+
+- [ ] First run uses made-up examples; later input is cleaned locally before any AI receives it.
+- [ ] Local cleaning removes names, IC, phone, bank details and addresses; any AI privacy review is a second check only.

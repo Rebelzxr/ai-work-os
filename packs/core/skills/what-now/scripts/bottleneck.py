@@ -4,11 +4,12 @@
 Parses the markdown tables in a TODO.md-style board and picks the row the
 skill should name as the bottleneck, using the same priority the SKILL.md
 describes:
-  1. a row whose "Owner and state" cell contains "blocked" (oldest first —
-     first blocked row found, top to bottom);
+  Ignore rows explicitly marked done or completed in "Owner and state".
+  1. a row explicitly marked blocked (first such row, top to bottom);
   2. else a row whose "Next action" cell needs the user specifically
      (contains "I approve", "you decide", "your call", or "approve");
-  3. else the first row on the board.
+  3. else the first active row on the board. Board order is the tie-breaker;
+     this script does not calculate age or dependency counts.
 
 This is a reference script for the CI fixture check, not the skill
 itself — the skill (an LLM reading the real board) should reach the same
@@ -21,6 +22,7 @@ import re
 import sys
 
 NEEDS_USER = re.compile(r"\bI approve\b|\byou decide\b|\byour call\b|\bapprove\b", re.I)
+STATE = re.compile(r"(?:^|·)\s*[*_`]*(blocked|done|completed)\b", re.I)
 
 
 def parse_rows(text: str):
@@ -39,13 +41,20 @@ def parse_rows(text: str):
 
 
 def pick(rows):
+    # The board uses "Owner · state"; some rows start with the state instead.
+    # Read status labels only, not status words inside explanatory prose.
+    rows = [r for r in rows if not states(r) & {"done", "completed"}]
     for r in rows:
-        if "blocked" in r[1].lower():
+        if "blocked" in states(r):
             return r
     for r in rows:
         if NEEDS_USER.search(r[2]):
             return r
     return rows[0] if rows else None
+
+
+def states(row):
+    return {match.lower() for match in STATE.findall(row[1])}
 
 
 def main() -> int:

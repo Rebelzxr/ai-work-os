@@ -28,6 +28,22 @@ def main() -> int:
     if len(sys.argv) != 3:
         print("usage: guard_workspace.py <workspace_root> <candidate_path>", file=sys.stderr)
         return 2
+    if sys.argv[1] == "--check-workspace":
+        root = sys.argv[2]
+        missing = [name for name in ("AGENTS.md", "memory/TODO.md")
+                   if not os.path.isfile(os.path.join(root, name))
+                   or not os.access(os.path.join(root, name), os.R_OK)]
+        if missing:
+            print("Workspace missing: " + ", ".join(missing))
+            print("Plugins add skills only. Create a workspace first:")
+            print("git clone https://github.com/Rebelzxr/ai-work-os.git")
+            print("cd ai-work-os")
+            print("./setup.sh ~/my-work --link-skills")
+            print('cd ~/my-work; start Claude Code and say "onboard".')
+            print("For Codex, add --codex to setup and start codex there.")
+            return 1
+        print("READY: workspace files found")
+        return 0
     root, candidate = sys.argv[1], sys.argv[2]
     if is_inside(root, candidate):
         print(f"ALLOWED: {candidate}")

@@ -1,5 +1,7 @@
 # follow-up-drafts test input
 
+All data below is made up for practice. For real input, clean locally first before pasting into any AI.
+
 Follow-up list:
 
 1. Customer A | quoted 16 days ago | no reply since | status: Followed up once | last contact by: us

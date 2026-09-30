@@ -2,13 +2,13 @@
 
 # AI Work OS
 
-**Run your work with AI agents like a small, careful company.**
+**A practical AI workspace for small-business owners.**
 You decide. Agents do the work. Files keep the proof.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-433%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-528%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
@@ -19,34 +19,45 @@ You decide. Agents do the work. Files keep the proof.
 
 AI agents can write code, research and build all day. The hard part is not getting work out of them. It is knowing what they actually did, stopping them before a one-way-door command, and picking up tomorrow where you left off today.
 
-This is the operating layer I run my own business on, cleaned up so anyone can use it: one rules file every agent reads, one board, job hand-offs with receipts, evidence before any "done", and four Claude Code hooks that do the babysitting. No server, no account, no subscription. Plain files and a few scripts.
+This is the operating layer I run my own business on, cleaned up so anyone can use it: one rules file every agent reads, one board, job hand-offs with receipts, evidence before any "done", and four Claude Code hooks that do the babysitting. The kit is free: plain files and a few scripts, with no kit account or subscription. Claude Code or Codex may need a paid plan; their costs and terms are separate.
 
 **Needs:** bash, git and python3 (the hooks use it). The dangerous-command hook runs in Claude Code today; Codex hook wiring is tracked, not shipped yet (see [docs/roadmap.md](docs/roadmap.md)). The rules file, board and skills work with any agent that reads files.
 
 ## Quick start
 
-One command, as a Claude Code plugin:
+### Create a new workspace (start here)
 
-```bash
-claude plugin marketplace add Rebelzxr/ai-work-os
-claude plugin install aiwos-core@ai-work-os
-```
-
-Or clone it and get the whole workspace (board, `AGENTS.md`, hooks, `dispatch/`) with `setup.sh`:
+This complete route creates your rules, board and hooks, and adds the five default skill packs to this project only:
 
 ```bash
 git clone https://github.com/Rebelzxr/ai-work-os.git
 cd ai-work-os
 ./setup.sh ~/my-work --link-skills
+cd ~/my-work
+claude
 ```
 
-Then open `~/my-work/AGENTS.md`, replace the `<angle brackets>` with your own details (about five minutes) — or say **"onboard"** and answer a short interview instead — start Claude Code in `~/my-work`, and say **"what now"**.
+Say **"onboard"**, then **"what now"**. Start customer-drafting skills with made-up examples. Before any later real input, remove names, IC numbers, phone numbers, bank details and addresses locally in your own editor, before pasting into AI. `safe-to-paste` is only a second check after local cleaning.
 
-Using Codex as well? Add `--codex` to also link the skills for Codex. Full install options, including `npx skills add` and the exact Codex skills path: [docs/install.md](docs/install.md).
+Using Codex? Add `--codex` to the setup command, then start `codex` in `~/my-work`. The kit's automatic command hooks currently run in Claude Code only.
+
+### Add skills to an existing workspace (plugins)
+
+Plugins add skills only; they do not create `AGENTS.md`, the board or workspace hooks. Use the route above if those are missing.
+
+```bash
+claude plugin marketplace add Rebelzxr/ai-work-os
+claude plugin install aiwos-core@ai-work-os --scope project
+claude plugin install aiwos-business@ai-work-os --scope project
+```
+
+Optional thinking tools: `./setup.sh ~/my-work --link-skills --pack thinking` (add `--codex` for Codex), or `claude plugin install aiwos-thinking@ai-work-os --scope project`.
+
+Full options: [docs/install.md](docs/install.md).
 
 ## Upgrading from v1
 
-Already running v1 or an earlier v2 in a workspace? `git pull` in this cloned repo, then re-run `./setup.sh ~/my-work --link-skills` from it (same target folder you used before) to link any new pack's skills alongside the ones you already have. It only adds files and links you don't already have — it never overwrites an edited file unless you pass `--force`.
+Already running v1 or an earlier v2 in a workspace? Update this clone, then start with `./setup.sh ~/my-work --upgrade` to see per-file differences, then merge wanted changes into your own files. A normal setup run only adds missing files and links. Existing global links from older installs remain until you remove them yourself. For deliberate replacement only, `--force` backs up each replaced file or link under the workspace's timestamped `.aiwos-backups/` folder and prints every backup path.
 
 ## What it gives you
 
@@ -55,13 +66,13 @@ Already running v1 or an earlier v2 in a workspace? `git pull` in this cloned re
 - **Job packets and receipts.** Hand work between agents with exact files, a clear finish line and stop conditions. Every finished job leaves a receipt.
 - **Evidence before claims.** Every task-shaped reply ends with `STATUS: VERIFIED`, `UNVERIFIED` or `BROKEN`, backed by the checks that were actually run.
 - **Hooks that stop one-way doors.** Common forms of force pushes, hard resets, deleting your home folder and running a downloaded script wait for your approval. The hook reads a command roughly the way bash does, so a subshell, an `if` block or a line break does not hide it. If the check crashes, it blocks. The full rule list is in [docs/how-it-works.md](docs/how-it-works.md).
-- **24 working skills across six packs.** Install what you need, or all of it:
-  - `aiwos-core` (6 skills) — `evidence-loop`, `job-packet`, `handoff`, `eod`, plus `onboard` (fills in AGENTS.md and the board for you) and `what-now` (the daily bottleneck, read-only). Start here: `claude plugin install aiwos-core@ai-work-os`.
-  - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os`.
-  - `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os`.
-  - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts`, `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os`.
-  - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy. Never runs a production deploy: `claude plugin install aiwos-web@ai-work-os`.
-  - `aiwos-video` (1 skill) — `video-brief` plus a caption lint for common mistakes (`packs/video/scripts/check-captions.py`, beta: it catches common SRT/WebVTT mistakes, but it is not a full validator, so still play the file in your video tool before publishing). Never renders or publishes video: `claude plugin install aiwos-video@ai-work-os`.
+- **17 default skills, plus 7 optional thinking tools.** Five packs cover the starting set for a small-business owner:
+  - `aiwos-core` (6 skills) — `evidence-loop`, `job-packet`, `handoff`, `eod`, plus `onboard` (fills in AGENTS.md and the board for you) and `what-now` (the daily bottleneck, read-only). Start here: `claude plugin install aiwos-core@ai-work-os --scope project`.
+  - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os --scope project`.
+  - **Optional:** `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os --scope project`.
+  - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts`, `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os --scope project`.
+  - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures, console-error check, an explicitly approved preview deploy. Never runs a production deploy: `claude plugin install aiwos-web@ai-work-os --scope project`.
+  - `aiwos-video` (1 skill) — `video-brief` plus a caption lint for common mistakes (`packs/video/scripts/check-captions.py`, beta: it catches common SRT/WebVTT mistakes, but it is not a full validator, so still play the file in your video tool before publishing). Never renders or publishes video: `claude plugin install aiwos-video@ai-work-os --scope project`.
 
   Each needs `claude plugin marketplace add Rebelzxr/ai-work-os` first. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
 - **A curated list of other people's best skills,** installed from their own repos with credit.
@@ -70,7 +81,7 @@ Already running v1 or an earlier v2 in a workspace? `git pull` in this cloned re
 
 **Setup** copies the template and links the skills. Running it again never overwrites your edits unless you ask.
 
-<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; current setup links skills from every pack): the linked skills, the copied template files, and the next three steps." width="100%"></p>
+<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; current setup uses project-local links for five default packs): the linked skills, the copied template files, and the next three steps." width="100%"></p>
 
 **A new session starts where you left off.** The SessionStart hook prints the board's resume block and lanes.
 
@@ -80,9 +91,15 @@ Already running v1 or an earlier v2 in a workspace? `git pull` in this cloned re
 
 <p align="center"><img src="assets/terminal-blocked.svg" alt="Real output of block-dangerous.sh blocking a force push with exit code 2." width="100%"></p>
 
-**Everything is tested,** including tricks to slip a command past the hook and harmless commands that must never be blocked.
+**What the checks prove:**
 
-<p align="center"><img src="assets/terminal-tests.svg" alt="Test output from v1.0: setup and hook tests passing. v2 adds packs, doctor, onboard, what-now and caption-lint tests (433 in total as of v2.1; the image itself predates the marketing/web/video packs, see docs/roadmap.md)." width="100%"></p>
+- **Script tests run code:** hook decisions, setup file operations and backups, task selection, onboarding path/workspace checks, doctor configuration checks and caption lint.
+- **Structural checks inspect skill files:** frontmatter, local script paths, privacy and approval wording, and fixture/checklist presence. A sample regex test also checks made-up identifiers; it is not an upload filter.
+- **Not tested here:** AI skill output quality, factual accuracy of generated replies or quotes, the live onboarding interview, or every runtime's plugin-install flow. People must check drafts against their source facts before manually sending.
+
+The badge is the sum of reported checks in seven suites: six script suites plus `tests/packs/run.sh`. It includes structural checks, not just behavior tests. Standalone frontmatter and plugin validation are additional checks outside that sum.
+
+<p align="center"><img src="assets/terminal-tests.svg" alt="Test output from v1.0: setup and hook tests passing. v2 adds packs, doctor, onboard, what-now and caption-lint tests (current totals are reported by the test suites; the image itself predates the marketing/web/video packs, see docs/roadmap.md)." width="100%"></p>
 
 ## Real use
 
@@ -121,9 +138,9 @@ More in [docs/third-party-skills.md](docs/third-party-skills.md).
 
 ## Safety and data flow
 
-- Everything is local: markdown files and small bash and Python scripts in your own folder.
+- The kit stores markdown files and small bash and Python scripts in your own folder. The AI tool you run it in sends your prompts and the files it reads to its model provider; a local folder does not make the model local.
 - The hooks read the command the agent is about to run, or the transcript file on your machine, and only write inside your workspace (`memory/`).
-- Nothing is sent over the network by this repo, with one exception: `doctor.sh` runs `gh auth status` to check whether GitHub CLI is authenticated, which contacts GitHub — it prints yes/no only, never a token. `install-skills.sh` prints commands and runs one only when you pass `--run` and confirm.
+- The kit itself sends no customer messages or drafts. Network exceptions: `doctor.sh` runs `gh auth status`, which contacts GitHub and reports authentication state only; `install-skills.sh --run` runs an installer after confirmation; clone, update and plugin/skill install commands contact their hosts. Third-party tools and AI providers have their own data policies.
 - The rules tell agents never to print secrets, never to paste private client data into other tools, and to back up before deleting shared data.
 
 ## Limitations
@@ -146,7 +163,7 @@ More in [docs/third-party-skills.md](docs/third-party-skills.md).
 ai-work-os/
 ├── .claude-plugin/marketplace.json   one-command plugin install (Claude Code; legacy-compatible with Codex)
 ├── setup.sh              copy the template into your workspace, link the skills
-├── doctor.sh             read-only health check: tools, hooks wired, skills linked
+├── doctor.sh             read-only health check: tools, hook configuration, skills available
 ├── install-skills.sh     recommended third-party skills, from their own repos
 ├── packs/
 │   ├── core/             the aiwos-core plugin (6 skills): .claude-plugin/plugin.json + skills/
@@ -166,7 +183,7 @@ ai-work-os/
 │   └── .claude/settings.json   hook wiring
 ├── skills/               compatibility symlinks into packs/core/skills/ (v1 clone paths keep working)
 ├── docs/                 install, packs, roadmap, how it works, third-party skills, links, connect, lessons, FAQ
-├── tests/                433 checks for setup, skills, packs, doctor, hooks and captions
+├── tests/                script tests and structural skill checks
 └── assets/               the images in this README
 ```
 

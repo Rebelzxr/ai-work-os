@@ -4,3 +4,6 @@
 - [ ] Output lists an open question about what counts as a "big order" — it does not invent a threshold (e.g. does not say ">5 items").
 - [ ] "Count the cash twice before closing the till" appears in the Common Mistakes section, not silently dropped.
 - [ ] Output ends with a version/date line noting it has not yet been tested with staff.
+
+- [ ] First run uses made-up examples; later input is cleaned locally before any AI receives it.
+- [ ] Local cleaning removes names, IC, phone, bank details and addresses; any AI privacy review is a second check only.

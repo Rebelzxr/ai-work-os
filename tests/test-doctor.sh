@@ -1,42 +1,102 @@
 #!/usr/bin/env bash
-# Fixture check for doctor.sh: a workspace with the template's .claude/settings.json
-# must report no FIX items (exit 0); one missing it must report a FIX and exit 1.
+# Real temporary workspaces; malformed configuration must never get a hook PASS.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP=$(mktemp -d)
 pass=0; fail=0
 ok() { if eval "$1"; then pass=$((pass+1)); else fail=$((fail+1)); echo "FAIL: $2"; fi; }
-
 TMPHOME="$TMP/home"
 HOME="$TMPHOME" bash "$HERE/setup.sh" "$TMP/good" --link-skills --codex >/dev/null
 mkdir -p "$TMP/broken"
-
 out_good=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/good"); rc_good=$?
-ok '[ "$rc_good" -eq 0 ]' "doctor exits 0 on a workspace with hooks wired"
-ok 'printf "%s" "$out_good" | grep -q "PASS  Claude Code hooks wired"' "doctor reports the wired hooks as PASS"
-ok '! printf "%s" "$out_good" | grep -qE "^FIX"' "no FIX line on a good workspace"
-
-# doctor also reports the Codex skills paths and checks all 24 skills, not just core
-ok 'printf "%s" "$out_good" | grep -q "~/.claude/skills: all 24 aiwos skills linked"' "doctor checks all 24 skills in ~/.claude/skills, not just the 6 core ones"
-ok 'printf "%s" "$out_good" | grep -q "~/.agents/skills (Codex, documented path): all 24 aiwos skills linked"' "doctor reports the documented Codex skills path"
-ok 'printf "%s" "$out_good" | grep -q "~/.codex/skills (Codex, legacy path): all 24 aiwos skills linked"' "doctor reports the legacy Codex skills path"
-
-out_nolink=$(HOME="$TMP/home-nolink" bash "$HERE/doctor.sh" "$TMP/good")
-ok 'printf "%s" "$out_nolink" | grep -q "~/.agents/skills (Codex, documented path): not present"' "doctor warns when the Codex documented skills path does not exist at all"
-
+ok '[ "$rc_good" -eq 0 ]' "doctor exits 0 with configured hooks"
+ok 'printf "%s" "$out_good" | grep -q "PASS  Claude Code PreToolUse hook configured"' "hook configuration gets a precise PASS"
+ok 'printf "%s" "$out_good" | grep -q "not observed firing"' "configuration is not proof of firing"
+ok '! printf "%s" "$out_good" | grep -qE "^FIX"' "no FIX on good workspace"
+ok 'printf "%s" "$out_good" | grep -q "workspace .claude/skills: all 17 default aiwos skills available"' "checks default project skills"
+ok 'printf "%s" "$out_good" | grep -q "workspace .agents/skills (Codex): all 17 default aiwos skills available"' "checks project Codex skills"
 out_broken=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/broken"); rc_broken=$?
-ok '[ "$rc_broken" -eq 1 ]' "doctor exits 1 on a workspace with no settings.json"
-ok 'printf "%s" "$out_broken" | grep -q "no .claude/settings.json"' "doctor names the missing settings file"
-
-# never prints a secret value: gh/claude/codex lines are yes/no or found/not-found only
-ok '! printf "%s" "$out_good" | grep -qiE "ghp_|gho_|sk-ant|token=|api[_-]?key="' "doctor never prints a token-shaped value"
-
-# a missing link gets safe advice: plain --link-skills, never --force (which overwrites the user's AGENTS.md and TODO.md)
-rm "$TMPHOME/.claude/skills/goal"
+ok '[ "$rc_broken" -eq 1 ]' "missing settings fails"
+ok 'printf "%s" "$out_broken" | grep -q "no .claude/settings.json"' "names missing file"
+ok '! printf "%s" "$out_good" | grep -qiE "ghp_|gho_|sk-ant|token=|api[_-]?key="' "does not print secrets"
+rm "$TMP/good/.claude/skills/eod"
+ln -s "$TMP/no-such-skill" "$TMP/good/.claude/skills/eod"
 out_missing=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/good")
-ok 'printf "%s" "$out_missing" | grep -q "missing: goal"' "doctor names the missing skill"
-ok '! printf "%s" "$out_missing" | grep -qE "run setup.sh[^(]*--force"' "doctor never tells the user to run setup.sh with --force"
+ok 'printf "%s" "$out_missing" | grep -q "16/17.*missing: eod"' "dangling symlink does not count"
+ok '! printf "%s" "$out_missing" | grep -qE "run setup.sh.*--force"' "repair advice never recommends force"
 
-rm -rf "$TMP"
+# Exercise the same parser doctor calls, without repeating optional auth checks.
+CHECK="$HERE/scripts/check-hook-config.py"
+SETTINGS="$TMP/good/.claude/settings.json"
+cp "$SETTINGS" "$TMP/settings.json"
+for content in '{"note":"block-dangerous"}' '{broken' '{"hooks":[]}' '{"hooks":{"PreToolUse":null}}'; do
+  printf '%s' "$content" > "$SETTINGS"
+  python3 "$CHECK" "$TMP/good"; rc=$?
+  ok '[ "$rc" -eq 1 ]' "unrelated text or invalid JSON structure cannot pass"
+done
+out_unrelated=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/good"); rc=$?
+ok '[ "$rc" -eq 1 ] && ! printf "%s" "$out_unrelated" | grep -q "PASS  Claude Code PreToolUse"' "doctor fails on invalid hook configuration"
+cp "$TMP/settings.json" "$SETTINGS"
+chmod -x "$TMP/good/scripts/hooks/block-dangerous.sh"
+python3 "$CHECK" "$TMP/good"; rc=$?
+ok '[ "$rc" -eq 1 ]' "non-executable script cannot pass"
+chmod +x "$TMP/good/scripts/hooks/block-dangerous.sh"
+rm "$TMP/good/scripts/hooks/block-dangerous.sh"
+ln -s "$TMP/missing-hook" "$TMP/good/scripts/hooks/block-dangerous.sh"
+python3 "$CHECK" "$TMP/good"; rc=$?
+ok '[ "$rc" -eq 1 ]' "dangling hook cannot pass"
+rm "$TMP/good/scripts/hooks/block-dangerous.sh"
+cp "$HERE/template/scripts/hooks/block-dangerous.sh" "$TMP/good/scripts/hooks/block-dangerous.sh"
+for mode in matcher event disabled fake-command; do
+  python3 - "$TMP/settings.json" "$SETTINGS" "$mode" <<'PY'
+import json, sys
+cfg = json.load(open(sys.argv[1]))
+mode = sys.argv[3]
+if mode == 'matcher': cfg['hooks']['PreToolUse'][0]['matcher'] = 'Read'
+if mode == 'event': cfg['hooks']['PostToolUse'] = cfg['hooks'].pop('PreToolUse')
+if mode == 'disabled': cfg['disableAllHooks'] = True
+if mode == 'fake-command': cfg['hooks']['PreToolUse'][0]['hooks'][0]['command'] = 'echo block-dangerous'
+with open(sys.argv[2], 'w') as f: json.dump(cfg, f)
+PY
+  python3 "$CHECK" "$TMP/good"; rc=$?
+  ok '[ "$rc" -eq 1 ]' "wrong matcher, event, disabled hooks or echo cannot pass"
+done
+# Quoting matters: never reinterpret a literal dollar as shell expansion.
+for mode in single-quote escaped-dollar unquoted-variable async; do
+  python3 - "$TMP/settings.json" "$SETTINGS" "$mode" <<'PYCASE'
+import json, sys
+cfg = json.load(open(sys.argv[1]))
+hook = cfg['hooks']['PreToolUse'][0]['hooks'][0]
+mode = sys.argv[3]
+if mode == 'single-quote': hook['command'] = "'$CLAUDE_PROJECT_DIR/scripts/hooks/block-dangerous.sh'"
+if mode == 'escaped-dollar': hook['command'] = r'"\$CLAUDE_PROJECT_DIR/scripts/hooks/block-dangerous.sh"'
+if mode == 'unquoted-variable': hook['command'] = '$CLAUDE_PROJECT_DIR/scripts/hooks/block-dangerous.sh'
+if mode == 'async': hook['async'] = True
+with open(sys.argv[2], 'w') as f: json.dump(cfg, f)
+PYCASE
+  python3 "$CHECK" "$TMP/good"; rc=$?
+  ok '[ "$rc" -eq 1 ]' "literal dollars, unquoted expansion and async hooks cannot pass"
+done
+HOME="$TMPHOME" bash "$HERE/setup.sh" "$TMP/space workspace" >/dev/null
+python3 "$CHECK" "$TMP/space workspace"; rc=$?
+ok '[ "$rc" -eq 0 ]' "quoted project variable works with workspace spaces"
+python3 - "$TMP/space workspace" <<'PYCASE'
+import json, pathlib, sys
+root = pathlib.Path(sys.argv[1]); p = root / '.claude/settings.json'
+cfg = json.loads(p.read_text())
+cfg['hooks']['PreToolUse'][0]['hooks'][0]['command'] = '"' + str(root / 'scripts/hooks/block-dangerous.sh') + '"'
+p.write_text(json.dumps(cfg))
+PYCASE
+python3 "$CHECK" "$TMP/space workspace"; rc=$?
+ok '[ "$rc" -eq 0 ]' "quoted absolute script path works with spaces"
+cp "$TMP/settings.json" "$SETTINGS"
+mkdir -p "$TMP/good/.codex"
+printf '{}' > "$TMP/good/.codex/hooks.json"
+out_codex=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/good")
+ok 'printf "%s" "$out_codex" | grep -q "WARN  Codex hooks.json present but not validated"' "file presence is not Codex hook proof"
+python3 - "$TMP" <<'PY'
+import shutil, sys
+shutil.rmtree(sys.argv[1])
+PY
 echo "doctor: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]

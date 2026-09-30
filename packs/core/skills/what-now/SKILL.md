@@ -15,8 +15,10 @@ Turns `memory/TODO.md` plus the newest evidence into one bottleneck, one outcome
 
 ## Decide the bottleneck
 
-The bottleneck is the one row that is blocking the most other work or is most overdue, not simply the first row on the board. In order:
-1. a row marked blocked (oldest first, when several are blocked);
+Use the explicit state in the "Owner and state" cell: a label at the start of the cell or after `·` in `Owner · state`. Skip rows marked `done` or `completed`, even when their old next action still asks for approval. `Unblocked` is not `blocked`, and status words in an outcome or explanatory note do not set the state. Surface any receipt mismatch separately without choosing completed work as the next task.
+
+Pick in this order, using top-to-bottom board order to break ties. This simple rule does not calculate age or count dependencies:
+1. a row explicitly marked `blocked`;
 2. else a row whose "next action" needs the user specifically (a decision, an approval, a send);
 3. else the first active row on the board.
 

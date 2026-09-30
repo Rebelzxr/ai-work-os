@@ -5,6 +5,14 @@ description: "Turn one sanitised real job, project or receipt into a LinkedIn po
 
 # Content from real work
 
+## Start safely
+
+On the first run, use only made-up examples (including any prices, policies and voice samples); label the output **practice, not for sending**. Do not ask for real customer messages yet.
+
+Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
+
+Optional dependency: `safe-to-paste` belongs to `aiwos-business`. If installed, use it only as a second check of the locally cleaned text. If missing, manually check the cleaned text for the same identifiers before drafting; stop and ask for local cleaning if anything remains. It is not an upload barrier.
+
 A generic method for turning one piece of real, already-sanitised work into shareable drafts. This is the method only — not any private voice, tone or skill text. If you have your own personal-brand voice skill, use that instead; this one is for anyone starting from nothing.
 
 ## What this produces
@@ -17,7 +25,7 @@ From one sanitised job, project or receipt: a LinkedIn-length draft, a short X/s
 - The one useful thing this piece of work taught or proved — a method, a mistake avoided, a number that moved, a before/after.
 - Which platform matters most right now (pick one to lead with; the others are repurposed from it, not written separately from scratch).
 
-**Privacy first:** remove client names, contact details and identifying deal details before sharing the note. If you installed the optional `aiwos-business` pack, use its `safe-to-paste` skill to help with this check. If the client's identity can be inferred even without their name (a very specific industry, city and deal size together), generalise one of those details before drafting.
+**Privacy first:** remove client names, contact details and identifying deal details before sharing the note. If you installed the optional `aiwos-business` pack, use its `safe-to-paste` skill as a second check after local cleaning. If the client's identity can be inferred even without their name (a very specific industry, city and deal size together), generalise one of those details before drafting.
 
 ## Steps
 

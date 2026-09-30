@@ -36,10 +36,10 @@ fi
 # --- workspace hooks wired (Claude Code) ---
 SETTINGS="$WS/.claude/settings.json"
 if [ -f "$SETTINGS" ]; then
-  if grep -q "block-dangerous" "$SETTINGS" 2>/dev/null; then
-    pass "Claude Code hooks wired in .claude/settings.json (block-dangerous found)"
+  if python3 "$HERE/scripts/check-hook-config.py" "$WS"; then
+    pass "Claude Code PreToolUse hook configured for Bash; executable block-dangerous script found (not observed firing)"
   else
-    fixmsg ".claude/settings.json exists but does not reference block-dangerous — hooks may not be protecting this workspace"
+    fixmsg ".claude/settings.json: no valid PreToolUse Bash command pointing to an existing executable block-dangerous script; check JSON, matcher and direct quoted path (shell wrappers are not verified)"
   fi
 else
   fixmsg "no .claude/settings.json in this workspace — run setup.sh, or copy template/.claude/settings.json"
@@ -47,17 +47,17 @@ fi
 
 # --- Codex hooks: not shipped yet (see docs/roadmap.md) ---
 if [ -f "$WS/.codex/hooks.json" ]; then
-  pass "Codex hooks.json present"
+  warn "Codex hooks.json present but not validated or observed firing by this doctor"
 else
-  warn "Codex hook wiring is not shipped yet — Claude Code hooks protect this workspace, Codex does not. See docs/roadmap.md"
+  warn "Codex hook wiring is not shipped yet — this doctor does not verify Codex protection. See docs/roadmap.md"
 fi
 
-# --- skills linked (all packs, not just core) ---
+# --- default project skills (thinking is optional) ---
 # Discover every skill from this repo's packs/*/skills; fall back to the six core
 # skills if this copy of doctor.sh is run somewhere without a packs/ folder next to it.
 ALL_SKILLS=()
 if [ -d "$HERE/packs" ]; then
-  for d in "$HERE"/packs/*/skills/*/; do
+  for d in "$HERE"/packs/{core,business,marketing,web,video}/skills/*/; do
     [ -e "$d" ] || continue
     ALL_SKILLS+=("$(basename "$d")")
   done
@@ -67,28 +67,32 @@ fi
 check_skills_dir() { # label, dir
   local label="$1" dir="$2" linked=0 missing=()
   if [ ! -d "$dir" ]; then
-    warn "$label: not present ($dir) — no aiwos skills linked there yet"
+    warn "$label: not present ($dir) — no default aiwos skills available there yet"
     return
   fi
   for s in "${ALL_SKILLS[@]}"; do
-    if [ -L "$dir/$s" ] || [ -d "$dir/$s" ]; then
+    if [ -d "$dir/$s" ] && [ -f "$dir/$s/SKILL.md" ]; then
       linked=$((linked+1))
     else
       missing+=("$s")
     fi
   done
   if [ "$linked" -eq "${#ALL_SKILLS[@]}" ]; then
-    pass "$label: all ${#ALL_SKILLS[@]} aiwos skills linked"
+    pass "$label: all ${#ALL_SKILLS[@]} default aiwos skills available"
   elif [ "$linked" -eq 0 ]; then
-    warn "$label: present but no aiwos skills linked ($dir) — run setup.sh --link-skills"
+    warn "$label: present but no default aiwos skills available ($dir) — run setup.sh --link-skills"
   else
-    warn "$label: $linked/${#ALL_SKILLS[@]} aiwos skills linked, missing: ${missing[*]} — run setup.sh <your-workspace> --link-skills (not --force: that overwrites your filled-in workspace files; if a folder with the same name blocks a link, move it yourself)"
+    warn "$label: $linked/${#ALL_SKILLS[@]} default aiwos skills available, missing: ${missing[*]} — run setup.sh <your-workspace> --link-skills (review any name collisions yourself)"
   fi
 }
 
-check_skills_dir "~/.claude/skills" "$HOME/.claude/skills"
-check_skills_dir "~/.agents/skills (Codex, documented path)" "$HOME/.agents/skills"
-check_skills_dir "~/.codex/skills (Codex, legacy path)" "$HOME/.codex/skills"
+check_skills_dir "workspace .claude/skills" "$WS/.claude/skills"
+check_skills_dir "workspace .agents/skills (Codex)" "$WS/.agents/skills"
+echo "INFO  Thinking pack: optional; add with setup.sh <your-workspace> --link-skills --pack thinking (plus --codex for Codex)."
+# Older global links may still affect other projects; report them without changing them.
+for dir in "$HOME/.claude/skills" "$HOME/.agents/skills" "$HOME/.codex/skills"; do
+  [ ! -d "$dir" ] || warn "Global skills folder exists: $dir; this check counts project skills only"
+done
 
 echo
 if [ "$fix" -eq 1 ]; then echo "Result: one or more FIX items above need attention."; else echo "Result: no FIX items."; fi

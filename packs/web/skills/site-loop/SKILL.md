@@ -7,6 +7,8 @@ description: "Run a website change through brief, build, local preview, phone+de
 
 Source: Dainer's published library guide "AI-assisted visual QA: Playwright captures at phone and desktop, light and dark" (<https://dainer-ai.biz/library>), and this repo's own `evidence-loop` skill (`packs/core/skills/evidence-loop/` — part of the optional `aiwos-core` pack) — if you installed `aiwos-core`, use its general evidence discipline together with this one's site-specific steps.
 
+Optional dependency: `evidence-loop` is in `aiwos-core`. If missing, use this skill's own captures, console check and result note below; record commands, results and any gaps locally before claiming completion.
+
 ## What this produces
 
 Evidence that a website change actually works: real screenshots at two viewports and two colour schemes, a console/page-error count, and (if the project has one) a preview-deploy URL — handed to a person or an agent to judge against the acceptance line, before anyone calls the change "done" or runs a production deploy.

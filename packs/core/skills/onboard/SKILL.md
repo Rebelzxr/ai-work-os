@@ -7,6 +7,26 @@ description: "A short interview that fills the <angle brackets> in AGENTS.md and
 
 Turns the placeholder workspace `setup.sh` copied into one filled-in AGENTS.md and one real first outcome. Five to seven short questions, one at a time. No hand-editing angle brackets.
 
+## Check the workspace first
+
+Before the interview or any write, run:
+
+```bash
+python3 "<this skill's folder>/scripts/guard_workspace.py" --check-workspace "<workspace_root>"
+```
+
+Both `AGENTS.md` and `memory/TODO.md` must be readable files. If either is missing, explain that plugins add skills only, show these commands, and pause the interview until setup is complete:
+
+```bash
+git clone https://github.com/Rebelzxr/ai-work-os.git
+cd ai-work-os
+./setup.sh ~/my-work --link-skills
+cd ~/my-work
+claude
+```
+
+Then say **"onboard"** in that new session. If the clone already exists, run its `setup.sh` instead of cloning again. For Codex, add `--codex` to setup and start `codex` in the workspace. Do not run setup into another folder on the user's behalf or guess a workspace from a plugin cache.
+
 ## Rules first
 
 - **Workspace only.** Only write inside the workspace this skill was run from (the folder holding this `AGENTS.md`). Refuse to write anywhere else, including a parent folder, `$HOME` directly, or another project's files. If asked to write outside the workspace, say so and stop. Before writing, check the target path with `<this skill's folder>/scripts/guard_workspace.py <workspace_root> <candidate_path>` — a non-zero exit means refuse and explain why.

@@ -5,15 +5,18 @@ description: "Turn a real job or piece of work into a 30-60 second video script,
 
 # Video brief
 
-Thin on purpose: this skill turns a real job into a brief. The actual video build, rendering and effects belong to a dedicated video tool — see `docs/third-party-skills.md` for HyperFrames (linked, Apache-2.0), the default hand-off target.
+Thin on purpose: this skill turns a real job into a brief. The actual video build, rendering and effects belong to a dedicated video tool, such as [HyperFrames](https://github.com/heygen-com/hyperframes) (optional, Apache-2.0). Without a video tool, save the brief for a person to use later.
 
 ## What this produces
 
-From one real, sanitised job or piece of work: a 30–60 second script broken into beats, a matching shot list, the on-screen text for each beat, and a set of caption rules (so captions can be checked with `packs/video/scripts/check-captions.py` once they exist). This brief is the input to a video builder — it does not render anything itself.
+From one real, sanitised job or piece of work: a 30–60 second script broken into beats, a matching shot list, the on-screen text for each beat, and a set of caption rules. This brief is the input to a video builder — it does not render anything itself.
+
+The caption checker ships beside this SKILL.md at `scripts/check-captions.py`. Resolve that path from this skill's installed folder, regardless of the current working directory. Run `python3 "<this skill's folder>/scripts/check-captions.py" "<caption-file.srt>"` (or a `.vtt` file). It works with a skills-only plugin install and needs Python 3. If Python 3 is unavailable, report that the captions have not been linted and leave the checker step pending.
 
 ## Before you start
 
-- One real job or result, already sanitised (no client name or identifying detail unless agreed — use `safe-to-paste` if you installed the optional `aiwos-business` pack).
+- On the first run, use a made-up example. For real material, **clean locally first** before pasting into any AI: remove names, IC numbers, phone numbers, bank details and addresses locally in your own editor; keep only the facts the brief needs.
+- `safe-to-paste` is an optional second check from the `aiwos-business` pack, after local cleaning. If that pack is missing, use a made-up example or already-cleaned facts and manually check for remaining identifying details before continuing. It is not an upload barrier.
 - The one thing the video should make a viewer feel or understand by the end.
 - Roughly how long the final video should be (30s, 45s or 60s) and whether it needs captions burned in (assume yes for social).
 
@@ -28,6 +31,7 @@ From one real, sanitised job or piece of work: a 30–60 second script broken in
    - Max lines per cue: 2.
    - Reading speed: no more than about 20 characters per second of cue duration (roughly 3 words per second at typical word length).
    - No overlapping cues, and no cue that ends before it starts.
+   - No ASCII control characters inside cue text; tabs and ordinary line endings are allowed.
 6. **Hand off.** Output the finished script, shot list, on-screen text and caption rules as one document, ready to paste into HyperFrames or another video builder. This skill stops here — it does not render, render-check or publish video.
 
 ## Worked example

@@ -7,7 +7,18 @@ The rules (`AGENTS.md`), the board, packets, receipts and skills are plain files
 No. The OS works on its own. Start with none, and add one when you feel a specific gap. `./install-skills.sh` explains what each one is for.
 
 **Is any of my data sent anywhere?**
-No. Everything is local files and local shell scripts. The hooks read the command the agent is about to run, or the chat transcript file on your machine, and write only inside your workspace.
+The kit itself sends no customer messages or drafts. But the AI tool you run it in sends your prompts and the files it reads to its model provider. Local files do not mean a local AI session. Start with made-up examples; remove names, IC, phone numbers, bank details and addresses locally before any real input. `safe-to-paste` is a second check, not an upload barrier.
+
+Network exceptions: `doctor.sh` calls `gh auth status` (contacts GitHub, reports authentication state only); `install-skills.sh --run` starts a network installer after confirmation; clone, update and plugin/skill installation commands contact their hosts. Other installed tools and the AI provider have their own policies.
+
+**Is it free?**
+The kit is free under MIT. Claude Code or Codex may need a paid plan; other tools or services may cost extra.
+
+**Are the skills tested?**
+Script tests run actual code for hooks, setup/backups, task selection, onboarding guards, doctor configuration and caption lint. Structural checks inspect skill frontmatter, script paths, safety wording and example checklists. A sample regex test checks made-up identifiers, not real uploads. None of those tests measure AI skill output quality or prove a draft quote is correct. The live onboarding interview and all runtime/plugin combinations are not covered. Always check the generated draft against your source facts before manually sending.
+
+**Do I need the thinking pack?**
+No. Setup starts with core, business, marketing, web and video (17 skills). Add the 7 thinking tools only when needed: `./setup.sh ~/my-work --link-skills --pack thinking` (plus `--codex` for Codex).
 
 **How is this different from gstack or superpowers?**
 Those give an agent roles and working methods. This is the layer around them: who decides what, one board, job hand-offs, receipts, evidence before claims, and hooks that stop dangerous commands. They work well together.

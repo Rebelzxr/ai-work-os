@@ -5,6 +5,14 @@ description: "Turn a transcript of the owner explaining a job out loud into a nu
 
 # Voice note to SOP
 
+## Start safely
+
+On the first run, use only made-up examples (including any prices, policies and voice samples); label the output **practice, not for sending**. Do not ask for real customer messages yet.
+
+Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
+
+Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
+
 Adapted from Dainer's published library guide "Turn a rambling voice note into a step-by-step SOP" (<https://dainer-ai.biz/library>).
 
 ## What this needs

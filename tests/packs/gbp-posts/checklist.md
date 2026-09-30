@@ -9,3 +9,6 @@
 - [ ] The floor mat is described as part of job 1, without claiming a standing business practice.
 - [ ] No draft names or identifies a customer.
 - [ ] Output never says a post was "published" or "posted" — only "drafted."
+
+- [ ] First run uses made-up examples; later input is cleaned locally before any AI receives it.
+- [ ] Local cleaning removes names, IC, phone, bank details and addresses; any AI privacy review is a second check only.
