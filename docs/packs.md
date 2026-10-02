@@ -6,12 +6,45 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 
 | Pack | Plugin name | What it has |
 |---|---|---|
-| `packs/core/` | `aiwos-core` | `evidence-loop`, `job-packet`, `handoff`, `eod`, `onboard`, `what-now` — start here |
-| `packs/business/` | `aiwos-business` | `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop` — drafts only, nothing sends |
-| `packs/thinking/` | `aiwos-thinking` (optional) | `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus` |
-| `packs/marketing/` | `aiwos-marketing` | `gbp-posts`, `follow-up-drafts`, `content-from-real-work` — drafts only, nothing posts or sends |
-| `packs/web/` | `aiwos-web` | `site-loop` — brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy; never runs a production deploy |
-| `packs/video/` | `aiwos-video` | `video-brief` plus its own `skills/video-brief/scripts/check-captions.py`, a lint for common SRT/VTT caption mistakes |
+| `packs/core/` | `aiwos-core` (7 skills) | `business-brief`, `evidence-loop`, `job-packet`, `handoff`, `eod`, `onboard`, `what-now` — start here |
+| `packs/business/` | `aiwos-business` (6 skills) | `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop` — drafts only, nothing sends |
+| `packs/marketing/` | `aiwos-marketing` (3 skills) | `gbp-posts`, `follow-up-drafts`, `content-from-real-work` — drafts only, nothing posts or sends |
+| `packs/web/` | `aiwos-web` (1 skill) | `site-loop` — brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy; never runs a production deploy |
+| `packs/video/` | `aiwos-video` (1 skill) | `video-brief` plus its caption lint |
+| `packs/sales/` | `aiwos-sales` (4 skills) | `qualified-prospect-pack`, `discovery-call-planner`, `scope-proposal`, `deal-follow-up` — drafts only |
+| `packs/delivery/` | `aiwos-delivery` (3 skills) | `client-kickoff`, `deliverable-production`, `quality-gate` |
+| `packs/plan/` | `aiwos-plan` (2 skills) | `weekly-bottleneck-review`, `decision-stress-test` |
+| `packs/handoff/` | `aiwos-handoff` (6 skills) | Codex, Claude Code and chat briefs, receiving, return verification and cross-model review |
+| `packs/thinking/` | `aiwos-thinking` (7 skills, optional) | `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus` |
+
+The nine default packs contain 33 skills. The thinking pack is optional and adds 7 more. Install any pack at project scope:
+
+```bash
+claude plugin marketplace add Rebelzxr/ai-work-os
+claude plugin install aiwos-core@ai-work-os --scope project
+claude plugin install aiwos-business@ai-work-os --scope project
+claude plugin install aiwos-marketing@ai-work-os --scope project
+claude plugin install aiwos-web@ai-work-os --scope project
+claude plugin install aiwos-video@ai-work-os --scope project
+claude plugin install aiwos-sales@ai-work-os --scope project
+claude plugin install aiwos-delivery@ai-work-os --scope project
+claude plugin install aiwos-plan@ai-work-os --scope project
+claude plugin install aiwos-handoff@ai-work-os --scope project
+# Optional:
+claude plugin install aiwos-thinking@ai-work-os --scope project
+```
+
+## One job, two editions
+
+Every new v2.3 job has an agent edition in `SKILL.md` for Claude Code or Codex and a copy-paste edition in `PROMPT.md` for any AI chat. They cover the same inputs, output, check before use and next job. A chat AI cannot inspect local files unless a person supplies a cleaned brief.
+
+## Run a one-person business
+
+Use the [business brief template](../template/context/business-brief.md) first, keep the checked copy at `context/business-brief.md`, then follow the [weekly rhythm](../workflows/weekly-rhythm.md). The brief holds the offer, rate rules, scope limits, proof, voice, working hours and the AI boundary.
+
+## Work across more than one AI
+
+The [multi-agent guide](multi-agent.md) explains the one-rules-file, one-writer and receipt loop. The `aiwos-handoff` pack contains `handoff-to-codex`, `handoff-to-claude`, `handoff-to-chat`, `receive-handoff`, `verify-return` and `cross-model-review`.
 
 ## Adding a new pack
 
@@ -40,7 +73,7 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 
 ## Business pack
 
-Adapted from the author's own published guides in the free [dainer-ai.biz library](https://dainer-ai.biz/library), rewritten as skills for a Malaysian SME owner in plain English.
+Adapted from the author's own published guides, rewritten as skills for a Malaysian SME owner in plain English.
 
 | Skill | What it does |
 |---|---|
@@ -71,7 +104,7 @@ Test fixtures use made-up names and correctly shaped but fake Malaysian IC, phon
 
 ## Marketing pack
 
-Adapted from the same free [dainer-ai.biz library](https://dainer-ai.biz/library) as the business pack, plus one generic authored method.
+Adapted from the same published guides as the business pack, plus one generic authored method.
 
 | Skill | What it does |
 |---|---|

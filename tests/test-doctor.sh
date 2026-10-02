@@ -5,6 +5,15 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP=$(mktemp -d)
 pass=0; fail=0
 ok() { if eval "$1"; then pass=$((pass+1)); else fail=$((fail+1)); echo "FAIL: $2"; fi; }
+DEFAULT_PACKS=(core business marketing web video sales delivery plan handoff)
+DEFAULT_SKILL_COUNT=0
+for p in "${DEFAULT_PACKS[@]}"; do
+  for skill_dir in "$HERE/packs/$p/skills"/*/; do
+    [ -d "$skill_dir" ] || continue
+    DEFAULT_SKILL_COUNT=$((DEFAULT_SKILL_COUNT+1))
+  done
+done
+[ "$DEFAULT_SKILL_COUNT" -gt 0 ] || { echo "FAIL: no default skill folders found"; exit 1; }
 TMPHOME="$TMP/home"
 HOME="$TMPHOME" bash "$HERE/setup.sh" "$TMP/good" --link-skills --codex >/dev/null
 mkdir -p "$TMP/broken"
@@ -13,8 +22,8 @@ ok '[ "$rc_good" -eq 0 ]' "doctor exits 0 with configured hooks"
 ok 'printf "%s" "$out_good" | grep -q "PASS  Claude Code PreToolUse hook configured"' "hook configuration gets a precise PASS"
 ok 'printf "%s" "$out_good" | grep -q "not observed firing"' "configuration is not proof of firing"
 ok '! printf "%s" "$out_good" | grep -qE "^FIX"' "no FIX on good workspace"
-ok 'printf "%s" "$out_good" | grep -q "workspace .claude/skills: all 17 default aiwos skills available"' "checks default project skills"
-ok 'printf "%s" "$out_good" | grep -q "workspace .agents/skills (Codex): all 17 default aiwos skills available"' "checks project Codex skills"
+ok 'printf "%s" "$out_good" | grep -q "workspace .claude/skills: all ${DEFAULT_SKILL_COUNT} default aiwos skills available"' "checks default project skills"
+ok 'printf "%s" "$out_good" | grep -q "workspace .agents/skills (Codex): all ${DEFAULT_SKILL_COUNT} default aiwos skills available"' "checks project Codex skills"
 out_broken=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/broken"); rc_broken=$?
 ok '[ "$rc_broken" -eq 1 ]' "missing settings fails"
 ok 'printf "%s" "$out_broken" | grep -q "no .claude/settings.json"' "names missing file"
@@ -22,7 +31,7 @@ ok '! printf "%s" "$out_good" | grep -qiE "ghp_|gho_|sk-ant|token=|api[_-]?key="
 rm "$TMP/good/.claude/skills/eod"
 ln -s "$TMP/no-such-skill" "$TMP/good/.claude/skills/eod"
 out_missing=$(HOME="$TMPHOME" bash "$HERE/doctor.sh" "$TMP/good")
-ok 'printf "%s" "$out_missing" | grep -q "16/17.*missing: eod"' "dangling symlink does not count"
+ok 'printf "%s" "$out_missing" | grep -q "$((${DEFAULT_SKILL_COUNT}-1))/${DEFAULT_SKILL_COUNT}.*missing: eod"' "dangling symlink does not count"
 ok '! printf "%s" "$out_missing" | grep -qE "run setup.sh.*--force"' "repair advice never recommends force"
 
 # Exercise the same parser doctor calls, without repeating optional auth checks.

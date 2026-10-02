@@ -1,0 +1,4 @@
+- [ ] Add acceptance criteria before showing a Claude Code command.
+- [ ] Keep the packet and command free of the invented phone and token placeholders' values.
+- [ ] Include both the `claude -p` route and a fresh-session route.
+- [ ] Refuse any file not listed in `ALLOWED_WRITES`.

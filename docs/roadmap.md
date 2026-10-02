@@ -1,5 +1,14 @@
 # Roadmap: known gaps
 
+## v2.4 backlog
+
+- Marketing front end: evidence miner, offer page and conversion test.
+- Customer success: support desk, renewal radar, proof and referral work.
+- Operations: scope guard, SOP upgrade and automation jobs.
+- `make-skill`: a guided path for creating a new job pack.
+- Finance pack, after a separate money review.
+- Windows walkthrough for setup and daily use.
+
 ## Codex hook wiring (tracked, not shipped)
 
 Codex now has its own hooks (`PreToolUse`, `PostToolUse`, `PreCompact`, `SessionStart`, `Stop`), on by default, living in `~/.codex/hooks.json` or `<repo>/.codex/hooks.json` — see <https://learn.chatgpt.com/docs/hooks> (checked 2026-09-29). A `PreToolUse` hook on `Bash` can block with exit code 2, the same mechanism `template/scripts/hooks/block-dangerous.sh` already uses for Claude Code.
@@ -22,7 +31,7 @@ Until then, `doctor.sh` reports "Codex hook wiring is not shipped yet" rather th
 
 ## v2.1 gaps (marketing, web, video packs)
 
-- **Assets not regenerated.** `assets/terminal-setup.svg` and `assets/terminal-tests.svg` still show the v1.0/early-v2.0 terminal output (19 skills linked, an older test total) and were not re-captured for this build — regenerating a "real terminal output only" capture needs an actual run, which this job's scope did not include. The README's alt text on these images says so; the current setup offers 17 default skills and 7 optional thinking tools. The README badge sums the current suite outputs and includes structural checks; those checks do not measure skill output quality.
+- **Assets not regenerated.** `assets/terminal-setup.svg` and `assets/terminal-tests.svg` still show the v1.0/early-v2.0 terminal output (19 skills linked, an older test total) and were not re-captured for this build — regenerating a "real terminal output only" capture needs an actual run, which this job's scope did not include. The README's alt text on these images says so; the current setup offers 33 default skills and 7 optional thinking tools. The README badge sums the current suite outputs and includes structural checks; those checks do not measure skill output quality.
 - **docs/connect/telegram.md is docs-only, not live-tested.** Creating a bot and confirming `getMe` was out of scope for a build told not to call any message-sending API; the page says this plainly.
 - **docs/connect/google.md, notion.md, vercel.md, cloudflare.md are not shipped.** They need a clean test account per service, which is an account-creation decision, not something this build could do unattended. `docs/connect/README.md` lists them as coming and points at each vendor's own docs in the meantime.
 - **`aiwos-marketing`, `aiwos-web` and `aiwos-video` have not had a live Codex plugin-install round trip**, the same gap noted above for `aiwos-business` and `aiwos-thinking` — only `aiwos-core` has been installed and exercised in a live Codex session.

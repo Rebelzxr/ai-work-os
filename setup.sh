@@ -2,12 +2,12 @@
 # Set up the AI Work OS in a folder.
 #
 #   ./setup.sh ~/my-work                     copy the template into ~/my-work
-#   ./setup.sh ~/my-work --link-skills        also link the five default packs into the workspace .claude/skills
+#   ./setup.sh ~/my-work --link-skills        also link the nine default packs into the workspace .claude/skills
 #   ./setup.sh ~/my-work --link-skills --codex   and into the Codex skills paths
 #   ./setup.sh ~/my-work --link-skills --pack core          link only the core pack's skills
 #   ./setup.sh ~/my-work --link-skills --pack core,business link two packs' skills (comma-separated)
 #   ./setup.sh ~/my-work --link-skills --pack core --pack business   same as above, repeated flags
-#                                              (default: core, business, marketing, web, video; thinking is optional)
+#                                              (default: core, business, marketing, web, video, sales, delivery, plan, handoff; thinking is optional)
 #   ./setup.sh ~/my-work --force              back up, then replace existing template files and selected skill links
 #                                              (originals are kept under .aiwos-backups/ in the workspace)
 #   ./setup.sh ~/my-work --upgrade            dry run: show what a normal run would change to an
@@ -125,7 +125,7 @@ link_into() { # dest_dir
     for p in "${PACKS[@]}"; do src_dirs+=("$HERE/packs/$p/skills"); done
   else
     # Thinking tools are an explicit choice, separate from the SME starting set.
-    for p in core business marketing web video; do src_dirs+=("$HERE/packs/$p/skills"); done
+    for p in core business marketing web video sales delivery plan handoff; do src_dirs+=("$HERE/packs/$p/skills"); done
   fi
   for glob_dir in "${src_dirs[@]}"; do
     for skill in "$glob_dir"/*/; do

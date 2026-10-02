@@ -1,0 +1,4 @@
+- [ ] Treat the returned “done” claim as unproven.
+- [ ] Rerun the named test and preserve its exit-1 result.
+- [ ] Compare every changed path with `ALLOWED_WRITES`.
+- [ ] Return BROKEN or UNVERIFIED with one concrete next action.

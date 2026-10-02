@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-sales",
+  "displayName": "AIW-OS Sales",
+  "version": "2.3.0",
+  "description": "Four sales jobs for one-person businesses: qualify public prospects, plan discovery calls, build scope-led proposals from supplied rate rules, and keep a follow-up queue. Drafts only — a person decides and acts.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["sales", "prospects", "discovery", "proposals", "follow-up", "sme"]
+}

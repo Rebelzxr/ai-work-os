@@ -11,14 +11,14 @@ On the first run, use only made-up examples (including any prices, policies and 
 
 Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
 
-Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
+Use `safe-to-paste` from the default `aiwos-business` pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
 
-Adapted from Dainer's published library guide "Turn a customer message into a draft quote" (<https://dainer-ai.biz/library>).
+Adapted from Dainer's published library guide "Turn a customer message into a draft quote".
 
 ## What this needs
 
 - The customer's request (a WhatsApp message, email, or form submission).
-- The business's price list in plain text: one service per line, a clear unit, what is included, what is not, and a rule for when a price "needs the owner" (custom jobs, bulk, out-of-area). A vague price list produces a vague quote — if the business hasn't put its prices in this shape yet, do that first; the free library guide at <https://dainer-ai.biz/library> covers turning a messy price list into this format.
+- The business's price list in plain text: one service per line, a clear unit, what is included, what is not, and a rule for when a price "needs the owner" (custom jobs, bulk, out-of-area). A vague price list produces a vague quote — if the business hasn't put its prices in this shape yet, do that first; the published library guide covers turning a messy price list into this format.
 
 ## Steps
 

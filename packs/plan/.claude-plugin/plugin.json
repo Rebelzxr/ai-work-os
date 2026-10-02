@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-plan",
+  "displayName": "AIW-OS Planning",
+  "version": "2.3.0",
+  "description": "Two planning jobs for a one-person business: fit the week to real capacity and test important decisions without fake precision.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["planning", "capacity", "decisions", "weekly-review"]
+}

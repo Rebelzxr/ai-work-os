@@ -27,7 +27,7 @@ Added alongside the `packs/marketing`, `packs/web` and `packs/video` packs. Full
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | HTML to deterministic MP4; the default hand-off target for `packs/video`'s `video-brief` | `claude plugin marketplace add heygen-com/hyperframes` then `claude plugin install hyperframes@hyperframes` (Node ≥22 and FFmpeg; requirements checked 2026-09-30) | Apache-2.0 |
 | [video-use](https://github.com/browser-use/video-use) | Edit video by conversation | See its README | MIT |
 | [Remotion skills](https://github.com/remotion-dev/skills) / [Remotion](https://github.com/remotion-dev/remotion) | React-based video | `npx skills add remotion-dev/skills` | **Link only, with a warning:** the skills repo has no LICENSE file, and Remotion's own runtime licence is free only up to 3 employees — a bigger business needs a paid company licence |
-| [PLUTO](https://pluto.dainer-ai.biz/) | Dainer's hosted website-visibility check | Open the URL | n/a (hosted product) |
+| PLUTO | Dainer's hosted website-visibility check | Use its approved product route | n/a (hosted product) |
 
 ## How they fit together
 

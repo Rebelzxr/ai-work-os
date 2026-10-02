@@ -26,7 +26,7 @@ IF BLOCKED: what to do when a constraint conflicts with the goal — stop and as
 ## Steps
 
 1. Write the contract before writing code.
-2. If anything in GOAL, CONSTRAINTS or DONE WHEN is genuinely unclear, that's a sign to ask one specific question rather than guess and build — see `reverse-prompt`.
+2. If anything in GOAL, CONSTRAINTS or DONE WHEN is genuinely unclear, that's a sign to ask one specific question rather than guess and build — see `reverse-prompt` in the optional `aiwos-thinking` pack.
 3. Build against the contract. If the build reveals the contract was wrong, stop and rewrite the contract rather than silently drifting from it.
 4. At the end, check DONE WHEN item by item — do not mark done from a general feeling that it's finished.
 

@@ -1,0 +1,5 @@
+- [ ] Count 20 committed hours before planned work and reserve the four-hour buffer.
+- [ ] Refuse the five-outcome plan as over capacity; choose exactly three or mark it unverified.
+- [ ] Include a stop-doing list with a return condition.
+- [ ] Link daily selection to core `what-now` instead of copying it.
+- [ ] Surface the unresolved source conflict.

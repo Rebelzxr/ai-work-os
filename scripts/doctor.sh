@@ -53,16 +53,19 @@ else
 fi
 
 # --- default project skills (thinking is optional) ---
-# Discover every skill from this repo's packs/*/skills; fall back to the six core
+# Discover every skill from the default packs; fall back to the core
 # skills if this copy of doctor.sh is run somewhere without a packs/ folder next to it.
 ALL_SKILLS=()
+DEFAULT_PACKS=(core business marketing web video sales delivery plan handoff)
 if [ -d "$HERE/packs" ]; then
-  for d in "$HERE"/packs/{core,business,marketing,web,video}/skills/*/; do
-    [ -e "$d" ] || continue
-    ALL_SKILLS+=("$(basename "$d")")
+  for p in "${DEFAULT_PACKS[@]}"; do
+    for d in "$HERE/packs/$p/skills"/*/; do
+      [ -d "$d" ] || continue
+      ALL_SKILLS+=("$(basename "$d")")
+    done
   done
 fi
-[ "${#ALL_SKILLS[@]}" -gt 0 ] || ALL_SKILLS=(eod evidence-loop handoff job-packet onboard what-now)
+[ "${#ALL_SKILLS[@]}" -gt 0 ] || ALL_SKILLS=(business-brief eod evidence-loop handoff job-packet onboard what-now)
 
 check_skills_dir() { # label, dir
   local label="$1" dir="$2" linked=0 missing=()

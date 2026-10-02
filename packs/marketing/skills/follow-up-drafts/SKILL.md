@@ -11,9 +11,9 @@ On the first run, use only made-up examples (including any prices, policies and 
 
 Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
 
-Optional dependency: `safe-to-paste` belongs to `aiwos-business`. If installed, use it only as a second check of the locally cleaned text. If missing, manually check the cleaned text for the same identifiers before drafting; stop and ask for local cleaning if anything remains. It is not an upload barrier.
+Optional dependency: `safe-to-paste` belongs to the default `aiwos-business` pack. If that pack is installed, use the skill only as a second check of the locally cleaned text. If the optional dependency is missing, manually check the cleaned text for the same identifiers before drafting; stop and ask for local cleaning if anything remains. It is not an upload barrier.
 
-Adapted from Dainer's published library guide "Follow-ups that stop when they should" (<https://dainer-ai.biz/library>), written for businesses that send quotes and lose track of who to follow up with.
+Adapted from Dainer's published library guide "Follow-ups that stop when they should", written for businesses that send quotes and lose track of who to follow up with.
 
 ## What this produces
 

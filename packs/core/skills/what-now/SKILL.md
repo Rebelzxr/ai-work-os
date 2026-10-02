@@ -37,7 +37,7 @@ Actions:
 3. <owner> — <action>
 ```
 
-Give at most three actions. If the board has nothing active, say so plainly and suggest running `onboard` (new workspace) or adding a row to `memory/TODO.md`.
+Give at most three actions. If the board has nothing active, say so plainly and suggest running the core `onboard` skill from the default `aiwos-core` pack (new workspace) or adding a row to `memory/TODO.md`.
 
 ## What this skill never does
 

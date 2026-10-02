@@ -11,7 +11,7 @@ On the first run, use only made-up examples (including any prices, policies and 
 
 Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
 
-Adapted from Dainer's published library guide "Before you paste anything into AI: a two-minute safety check" (<https://dainer-ai.biz/library>). This is a second check after local cleaning, not an upload barrier. Text entered into this AI session has already been shared with its model provider. The pattern test checks examples only; it does not run automatically on uploads.
+Adapted from Dainer's published library guide "Before you paste anything into AI: a two-minute safety check". This is a second check after local cleaning, not an upload barrier. Text entered into this AI session has already been shared with its model provider. The pattern test checks examples only; it does not run automatically on uploads.
 
 ## Local checklist for the owner (before sharing real text)
 

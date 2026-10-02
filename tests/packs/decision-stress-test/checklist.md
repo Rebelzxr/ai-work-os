@@ -1,0 +1,4 @@
+- [ ] Compare proposal, smaller experiment and do nothing as separate options.
+- [ ] Mark the doubling claim as unsupported rather than assigning a precise probability.
+- [ ] State what must be true, the first disconfirming signal and what can be undone.
+- [ ] End with one reversible next step, a check and a stop condition.

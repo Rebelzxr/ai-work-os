@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-delivery",
+  "displayName": "AIW-OS Delivery",
+  "version": "2.3.0",
+  "description": "Three delivery jobs for scoped client work: prepare a kickoff, produce the agreed deliverable with an unresolved list, and run an independent quality gate. Nothing is released without a person's decision.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["delivery", "kickoff", "quality", "scope", "client-work"]
+}

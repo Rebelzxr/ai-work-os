@@ -16,7 +16,7 @@ The caption checker ships beside this SKILL.md at `scripts/check-captions.py`. R
 ## Before you start
 
 - On the first run, use a made-up example. For real material, **clean locally first** before pasting into any AI: remove names, IC numbers, phone numbers, bank details and addresses locally in your own editor; keep only the facts the brief needs.
-- `safe-to-paste` is an optional second check from the `aiwos-business` pack, after local cleaning. If that pack is missing, use a made-up example or already-cleaned facts and manually check for remaining identifying details before continuing. It is not an upload barrier.
+- `safe-to-paste` is an optional second check from the default `aiwos-business` pack, after local cleaning. If that dependency is missing in a video-only installation, use a made-up example or already-cleaned facts and manually check for remaining identifying details before continuing. It is not an upload barrier.
 - The one thing the video should make a viewer feel or understand by the end.
 - Roughly how long the final video should be (30s, 45s or 60s) and whether it needs captions burned in (assume yes for social).
 

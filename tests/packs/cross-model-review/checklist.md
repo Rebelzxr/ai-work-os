@@ -1,0 +1,4 @@
+- [ ] Confirm the reviewer is different from the producer.
+- [ ] Provide only the artifact, criteria and fresh evidence; omit chat history and private data.
+- [ ] Require read-only review with a PASS or FIX verdict.
+- [ ] Treat FIX as a repair gate and never let the producer approve its own work.

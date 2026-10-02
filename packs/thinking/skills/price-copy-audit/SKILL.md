@@ -38,7 +38,7 @@ Page has three tiers: RM500, RM1,200, RM2,500 — but the RM1,200 tier lists no 
 Fix: name one concrete extra deliverable for the middle tier, or drop it and let the two real tiers stand.
 
 First line: "We are a full-service agency specializing in digital transformation solutions."
-Fix: lead with the outcome the reader wants, with a specific number where possible — see `feature-to-feeling` for the feature-to-felt-value rewrite method.
+Fix: lead with the outcome the reader wants, with a specific number where possible — see `feature-to-feeling` in the optional `aiwos-thinking` pack for the feature-to-felt-value rewrite method.
 
 ## Failure modes
 

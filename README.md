@@ -8,7 +8,7 @@ You decide. Agents do the work. Files keep the proof.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-528%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-665%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
@@ -27,7 +27,7 @@ This is the operating layer I run my own business on, cleaned up so anyone can u
 
 ### Create a new workspace (start here)
 
-This complete route creates your rules, board and hooks, and adds the five default skill packs to this project only:
+This complete route creates your rules, board and hooks, and adds the nine default skill packs to this project only:
 
 ```bash
 git clone https://github.com/Rebelzxr/ai-work-os.git
@@ -66,22 +66,40 @@ Already running v1 or an earlier v2 in a workspace? Update this clone, then star
 - **Job packets and receipts.** Hand work between agents with exact files, a clear finish line and stop conditions. Every finished job leaves a receipt.
 - **Evidence before claims.** Every task-shaped reply ends with `STATUS: VERIFIED`, `UNVERIFIED` or `BROKEN`, backed by the checks that were actually run.
 - **Hooks that stop one-way doors.** Common forms of force pushes, hard resets, deleting your home folder and running a downloaded script wait for your approval. The hook reads a command roughly the way bash does, so a subshell, an `if` block or a line break does not hide it. If the check crashes, it blocks. The full rule list is in [docs/how-it-works.md](docs/how-it-works.md).
-- **17 default skills, plus 7 optional thinking tools.** Five packs cover the starting set for a small-business owner:
-  - `aiwos-core` (6 skills) — `evidence-loop`, `job-packet`, `handoff`, `eod`, plus `onboard` (fills in AGENTS.md and the board for you) and `what-now` (the daily bottleneck, read-only). Start here: `claude plugin install aiwos-core@ai-work-os --scope project`.
-  - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os --scope project`.
-  - **Optional:** `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os --scope project`.
-  - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts`, `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os --scope project`.
-  - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures, console-error check, an explicitly approved preview deploy. Never runs a production deploy: `claude plugin install aiwos-web@ai-work-os --scope project`.
-  - `aiwos-video` (1 skill) — `video-brief` plus a caption lint for common mistakes (`packs/video/scripts/check-captions.py`, beta: it catches common SRT/WebVTT mistakes, but it is not a full validator, so still play the file in your video tool before publishing). Never renders or publishes video: `claude plugin install aiwos-video@ai-work-os --scope project`.
+- **33 default skills, plus 7 optional thinking tools.** Nine packs cover the starting set for a one-person business:
+  - `aiwos-core` (7 skills) — `business-brief`, `evidence-loop`, `job-packet`, `handoff`, `eod`, `onboard` and `what-now`. Start here: `claude plugin install aiwos-core@ai-work-os --scope project`.
+  - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send` and `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os --scope project`.
+  - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts` and `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os --scope project`.
+  - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures and console-error check, stopping before production: `claude plugin install aiwos-web@ai-work-os --scope project`.
+  - `aiwos-video` (1 skill) — `video-brief` plus its caption lint. It never renders or publishes video: `claude plugin install aiwos-video@ai-work-os --scope project`.
+  - `aiwos-sales` (4 skills) — `qualified-prospect-pack`, `discovery-call-planner`, `scope-proposal` and `deal-follow-up`: `claude plugin install aiwos-sales@ai-work-os --scope project`.
+  - `aiwos-delivery` (3 skills) — `client-kickoff`, `deliverable-production` and `quality-gate`: `claude plugin install aiwos-delivery@ai-work-os --scope project`.
+  - `aiwos-plan` (2 skills) — `weekly-bottleneck-review` and `decision-stress-test`: `claude plugin install aiwos-plan@ai-work-os --scope project`.
+  - `aiwos-handoff` (6 skills) — Codex, Claude Code and chat briefs, receiving, return verification and cross-model review: `claude plugin install aiwos-handoff@ai-work-os --scope project`.
+  - **Optional:** `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt` and `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os --scope project`.
 
-  Each needs `claude plugin marketplace add Rebelzxr/ai-work-os` first. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
+  Add the marketplace once with `claude plugin marketplace add Rebelzxr/ai-work-os`. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
+- **A sales and delivery route for paid work.** `aiwos-sales` qualifies public prospects, plans discovery calls, builds scope-led proposals from supplied rate rules, and keeps a stop-aware deal queue. `aiwos-delivery` prepares kickoffs, creates scoped drafts, and checks them with a separate `PASS` / `REVISE` / `BLOCKED` gate. Each new job has both an agent edition (`SKILL.md`) and a copy-paste edition (`PROMPT.md`).
+- **A weekly rhythm and multi-AI handoffs.** See [workflows/weekly-rhythm.md](workflows/weekly-rhythm.md) for the one-person weekly route. `aiwos-plan` adds small planning checks and `aiwos-handoff` adds bounded work orders for more than one AI tool; every handoff keeps its sources, allowed writes, acceptance checks and receipt.
 - **A curated list of other people's best skills,** installed from their own repos with credit.
+
+## One job, two editions
+
+Every new v2.3 job ships in two forms. `SKILL.md` is the agent edition for Claude Code or Codex, with local paths, checks and approval boundaries. `PROMPT.md` is the copy-paste edition for any AI chat, with the inputs, one prompt block, the expected result, a check before use and the next job. The two editions describe the same bounded job; a chat AI cannot inspect local files unless a person supplies a cleaned brief.
+
+## Run a one-person business
+
+Start with the [business brief template](template/context/business-brief.md), then keep the checked copy at `context/business-brief.md`. It records the offer, rate rules, scope limits, proof, voice, working hours and what the AI must never do. The [weekly rhythm](workflows/weekly-rhythm.md) turns that brief into a light Monday-to-Friday route with a daily due-follow-up check.
+
+## Work across more than one AI
+
+Read [docs/multi-agent.md](docs/multi-agent.md) before sharing a workspace. The `aiwos-handoff` pack provides `handoff-to-codex`, `handoff-to-claude`, `handoff-to-chat`, `receive-handoff`, `verify-return` and `cross-model-review`, with one writer per file, explicit allowed writes and a receipt. The person still decides what is sent, published, deployed, paid for or deleted.
 
 ## See it work
 
 **Setup** copies the template and links the skills. Running it again never overwrites your edits unless you ask.
 
-<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; current setup uses project-local links for five default packs): the linked skills, the copied template files, and the next three steps." width="100%"></p>
+<p align="center"><img src="assets/terminal-setup.svg" alt="Real output of setup.sh from v1.0 (home path shortened to ~; current setup uses project-local links for nine default packs): the linked skills, the copied template files, and the next three steps." width="100%"></p>
 
 **A new session starts where you left off.** The SessionStart hook prints the board's resume block and lanes.
 
@@ -103,7 +121,7 @@ The badge is the sum of reported checks in seven suites: six script suites plus 
 
 ## Real use
 
-This is a cleaned-up copy of the system behind [dainer-ai.biz](https://dainer-ai.biz): its free [library](https://dainer-ai.biz/library), the daily [AI news](https://dainer-ai.biz/news) picker and site releases go through the same board, packets, receipts and STATUS lines. Two agents share the work, Claude and Codex, each owning its own lanes. The private version holds client work, so this public one keeps the method and none of the data.
+This is a cleaned-up public version of a private operating system: one board, packets, receipts and STATUS lines shared across separate Claude and Codex lanes. The private version holds client work, so this public one keeps the method and none of the data.
 
 ## How it works
 
@@ -166,12 +184,16 @@ ai-work-os/
 ├── doctor.sh             read-only health check: tools, hook configuration, skills available
 ├── install-skills.sh     recommended third-party skills, from their own repos
 ├── packs/
-│   ├── core/             the aiwos-core plugin (6 skills): .claude-plugin/plugin.json + skills/
+│   ├── core/             the aiwos-core plugin (7 skills): .claude-plugin/plugin.json + skills/
 │   ├── business/         the aiwos-business plugin (6 skills): SME drafting skills, nothing sends
-│   ├── thinking/         the aiwos-thinking plugin (7 skills): scoping, copy and review tools
 │   ├── marketing/        the aiwos-marketing plugin (3 skills): GBP posts, follow-ups, content drafts
 │   ├── web/              the aiwos-web plugin (1 skill): site-loop, stops before production
-│   └── video/            the aiwos-video plugin (1 skill): video-brief + a caption lint script
+│   ├── video/             the aiwos-video plugin (1 skill): video-brief + a caption lint script
+│   ├── sales/             the aiwos-sales plugin (4 skills): prospect, discovery, proposal and follow-up drafts
+│   ├── delivery/          the aiwos-delivery plugin (3 skills): kickoff, production and quality gate
+│   ├── plan/              the aiwos-plan plugin (2 skills): weekly bottleneck and decision review
+│   ├── handoff/           the aiwos-handoff plugin (6 skills): bounded multi-AI work orders and checks
+│   └── thinking/          the optional aiwos-thinking plugin (7 skills): scoping, copy and review tools
 ├── template/             what lands in your workspace
 │   ├── AGENTS.md         rules every agent reads
 │   ├── CLAUDE.md         Claude Code entry point and lane routing
@@ -182,7 +204,8 @@ ai-work-os/
 │   ├── scripts/hooks/    SessionStart, PreToolUse, PreCompact, Stop
 │   └── .claude/settings.json   hook wiring
 ├── skills/               compatibility symlinks into packs/core/skills/ (v1 clone paths keep working)
-├── docs/                 install, packs, roadmap, how it works, third-party skills, links, connect, lessons, FAQ
+├── docs/                 install, packs, roadmap, multi-agent, how it works, third-party skills, links, connect, lessons, FAQ
+├── workflows/            the weekly rhythm and workflow format
 ├── tests/                script tests and structural skill checks
 └── assets/               the images in this README
 ```
@@ -221,6 +244,5 @@ The working principles draw on ideas from these projects, especially the Karpath
 ## About
 
 Built by Dainer in Kuala Lumpur. I build with AI and share what's worth teaching from real work and business.
-Free library: [dainer-ai.biz/library](https://dainer-ai.biz/library) · Site: [dainer-ai.biz](https://dainer-ai.biz)
 
 Related: [second-brain-agent](https://github.com/Rebelzxr/second-brain-agent) (notes that agents can use) · [ai-news-picker](https://github.com/Rebelzxr/ai-news-picker) · [fable-forge](https://github.com/Rebelzxr/fable-forge)

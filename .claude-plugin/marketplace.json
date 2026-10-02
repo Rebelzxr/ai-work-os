@@ -35,6 +35,26 @@
       "name": "aiwos-video",
       "source": "./packs/video",
       "description": "video-brief turns a real job into a 30-60s script, shot list and caption rules for a video builder, plus a deterministic SRT/VTT caption lint."
+    },
+    {
+      "name": "aiwos-sales",
+      "source": "./packs/sales",
+      "description": "Four sales jobs: qualify public prospects, plan discovery calls, build scope-led proposals from supplied rate rules, and keep a follow-up queue. Drafts only."
+    },
+    {
+      "name": "aiwos-delivery",
+      "source": "./packs/delivery",
+      "description": "Three delivery jobs: prepare a kickoff, produce the agreed deliverable with an unresolved list, and run an independent quality gate. Nothing is released without a person's decision."
+    },
+    {
+      "name": "aiwos-plan",
+      "source": "./packs/plan",
+      "description": "Two small planning jobs: review the weekly bottleneck and stress-test an important decision."
+    },
+    {
+      "name": "aiwos-handoff",
+      "source": "./packs/handoff",
+      "description": "Six jobs for moving bounded work between AI tools with work orders, receipts, leases and independent checks."
     }
   ]
 }

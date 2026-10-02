@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-handoff",
+  "displayName": "AIW-OS Handoff",
+  "version": "2.3.0",
+  "description": "Six jobs for moving bounded work between AI tools: write a packet, receive it, check the return, and get an independent review.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["handoff", "work-order", "receipts", "review", "multi-agent"]
+}

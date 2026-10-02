@@ -37,4 +37,4 @@ STOP_IF: conditions that end the job early and report back
 
 ## After it runs
 
-The builder writes `dispatch/receipts/<JOB_ID>.receipt.md`. Read the actual files and outputs yourself before you tell anyone it is done (see the `evidence-loop` skill). Then move the packet to `inbox/<lane>/done/` and update the board row.
+The builder writes `dispatch/receipts/<JOB_ID>.receipt.md`. Read the actual files and outputs yourself before you tell anyone it is done (see the core `evidence-loop` skill in the default `aiwos-core` pack). Then move the packet to `inbox/<lane>/done/` and update the board row.

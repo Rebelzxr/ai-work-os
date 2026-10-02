@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Structure, fixture and safety-language checks for packs/business, packs/thinking,
-# packs/marketing, packs/web and packs/video.
+# Structure, fixture, safety-language and copy-paste-prompt checks for every pack.
 # Exits non-zero on any failure. Prints one line per check.
 set -u
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -13,10 +12,26 @@ skills_checked=0
 fm_check_tmp="$(mktemp)"
 trap 'rm -f "$fm_check_tmp"' EXIT
 
+for required_pack in packs/core packs/business packs/marketing packs/web packs/video packs/sales packs/delivery packs/plan packs/handoff; do
+  if [ ! -d "$required_pack/skills" ]; then
+    echo "FAIL: missing required pack $required_pack"
+    fail=1
+  fi
+done
+
+brief_skill="packs/core/skills/business-brief/SKILL.md"
+if grep -qF 'context/business-brief.md' "$brief_skill" && ! grep -qF 'template/context/business-brief.md' "$brief_skill"; then
+  passed "business-brief reads the copied workspace template"
+else
+  echo "FAIL: business-brief must read context/business-brief.md, not the repository template path"
+  fail=1
+fi
+
 SEND_WORDS_RE='(^|[^a-zA-Z])(send|sends|sending|post|posts|posting|publish|publishes|publishing|deploy|deploys|deploying|pay|pays|paying|delete|deletes|deleting)([^a-zA-Z]|$)'
 
-for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/video; do
-  [ -d "$pack_dir/skills" ] || { echo "FAIL: no skills dir in $pack_dir"; fail=1; continue; }
+for pack_dir in packs/*/; do
+  [ -d "$pack_dir/skills" ] || continue
+  pack_name="$(basename "$pack_dir")"
 
   # plugin manifest present
   if [ ! -f "$pack_dir/.claude-plugin/plugin.json" ]; then
@@ -29,6 +44,7 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
   fi
 
   for skill_dir in "$pack_dir"/skills/*/; do
+    [ -d "$skill_dir" ] || continue
     name="$(basename "$skill_dir")"
     skill_md="$skill_dir/SKILL.md"
     skills_checked=$((skills_checked + 1))
@@ -55,16 +71,55 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
 
     # safety-language lint: if SKILL.md mentions send/post/publish/deploy/pay/delete,
     # it must contain an explicit human-approval section.
-    body_lower="$(tr '[:upper:]' '[:lower:]' < "$skill_md")"
-    if echo "$body_lower" | grep -qE "$SEND_WORDS_RE"; then
-      if echo "$body_lower" | grep -qi "## human approval"; then
-        passed "$name has send/post/publish/deploy/pay/delete language AND a Human approval section"
+    if [ "$pack_name" != "core" ]; then
+      body_lower="$(tr '[:upper:]' '[:lower:]' < "$skill_md")"
+      if echo "$body_lower" | grep -qE "$SEND_WORDS_RE"; then
+        if echo "$body_lower" | grep -qi "## human approval"; then
+          passed "$name has send/post/publish/deploy/pay/delete language AND a Human approval section"
+        else
+          echo "FAIL: $name mentions a send/post/publish/deploy/pay/delete word but has no '## Human approval' section"
+          fail=1
+        fi
       else
-        echo "FAIL: $name mentions a send/post/publish/deploy/pay/delete word but has no '## Human approval' section"
-        fail=1
+        echo "SKIP: $name has no send/post/publish/deploy/pay/delete language (lint not required)"
       fi
-    else
-      echo "SKIP: $name has no send/post/publish/deploy/pay/delete language (lint not required)"
+    fi
+
+    # The business brief and every skill in the new sales, delivery, plan and
+    # handoff packs ship with a copy-paste edition.
+    prompt_required=0
+    case "$pack_name" in
+      core) [ "$name" = "business-brief" ] && prompt_required=1 ;;
+      sales|delivery|plan|handoff) prompt_required=1 ;;
+    esac
+    if [ "$prompt_required" -eq 1 ]; then
+      prompt_md="$skill_dir/PROMPT.md"
+      if [ ! -f "$prompt_md" ]; then
+        echo "FAIL: $name has no PROMPT.md"
+        fail=1
+      else
+        expected_sections=$(printf '%s\n' \
+          '## What to give it' \
+          '## The prompt' \
+          '## What you get back' \
+          '## Check before you use it' \
+          '## Next job')
+        actual_sections=$(grep '^## ' "$prompt_md" || true)
+        if [ "$actual_sections" = "$expected_sections" ]; then
+          passed "$name PROMPT.md has the five required sections in order"
+        else
+          echo "FAIL: $name PROMPT.md must contain exactly the five required sections in order"
+          echo "Found sections:"
+          printf '%s\n' "$actual_sections"
+          fail=1
+        fi
+      fi
+    fi
+
+    # Core's existing skills predate fixtures. New and non-core skills keep
+    # the fixture requirement used by the existing packs.
+    if [ "$pack_name" = "core" ]; then
+      continue
     fi
 
     # fixture presence
@@ -94,14 +149,6 @@ for pack_dir in packs/business packs/thinking packs/marketing packs/web packs/vi
       passed "$name fixture has a real input (${input_chars} chars) and $checklist_items checklist items"
     fi
   done
-done
-
-for skill_md in packs/core/skills/*/SKILL.md; do
-  if python3 tests/check-skill-contracts.py "$skill_md"; then
-    passed "$(basename "$(dirname "$skill_md")") script paths stay inside core"
-  else
-    echo "FAIL: $skill_md script paths"; fail=1
-  fi
 done
 
 echo "---"

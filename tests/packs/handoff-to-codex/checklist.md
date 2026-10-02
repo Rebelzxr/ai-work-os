@@ -1,0 +1,5 @@
+- [ ] Reject or repair a work order that has no measurable acceptance check.
+- [ ] Confirm the invented phone and token fields are excluded from the packet and command.
+- [ ] Confirm the command names the exact workspace, packet path and receipt path.
+- [ ] Confirm the command is shown for a person to run and was not run by the skill.
+- [ ] `ALLOWED_WRITES` in the work order includes both the receipt and `dispatch/receipts/<JOB_ID>.codex-output.md` (the file the shown command's `-o` flag writes), so verify-return does not flag it.

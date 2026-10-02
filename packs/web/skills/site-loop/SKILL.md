@@ -5,9 +5,9 @@ description: "Run a website change through brief, build, local preview, phone+de
 
 # Site loop
 
-Source: Dainer's published library guide "AI-assisted visual QA: Playwright captures at phone and desktop, light and dark" (<https://dainer-ai.biz/library>), and this repo's own `evidence-loop` skill (`packs/core/skills/evidence-loop/` — part of the optional `aiwos-core` pack) — if you installed `aiwos-core`, use its general evidence discipline together with this one's site-specific steps.
+Source: Dainer's published library guide "AI-assisted visual QA: Playwright captures at phone and desktop, light and dark", and this repo's own `evidence-loop` skill in the default `aiwos-core` pack. For a web-only install, `evidence-loop` is an optional dependency; if `aiwos-core` is installed, use its general evidence discipline together with this one's site-specific steps.
 
-Optional dependency: `evidence-loop` is in `aiwos-core`. If missing, use this skill's own captures, console check and result note below; record commands, results and any gaps locally before claiming completion.
+Optional dependency: `evidence-loop` belongs to the default `aiwos-core` pack. If missing, use this skill's own captures, console check and result note below; record commands, results and any gaps locally before claiming completion.
 
 ## What this produces
 
@@ -34,7 +34,7 @@ Evidence that a website change actually works: real screenshots at two viewports
 6. **Preview deploy (if the project has one), only after the owner says yes.** Ask the owner before pushing anything or running a preview-deploy command — do not push or deploy first and explain after. Once they say yes: push to a non-production branch (never `main` or the repo's production branch) or run the project's own preview-deploy command (for example a Vercel preview). A preview deploy also waits for that yes; it is not exempt just because it isn't "production" in name. If the project has no preview-deploy step, skip this and say so in the result note.
    - **On a git-linked host (Vercel, Cloudflare Pages, Netlify, etc.), a push to the production branch IS a production deploy** — the host deploys it automatically, there is no separate "deploy" step to withhold. Treat pushing to that branch with the same approval gate as a manual production deploy, not as a lesser action.
 7. **Result note.** One short file or message: acceptance line, the four (or more) screenshot file names, the error count, the preview URL if any, and a pass/fail judgment against the acceptance line — with the actual numbers and file names, not "looks good".
-8. **Stop before production.** This skill never runs a production deploy, never assigns a production alias, and never pushes or merges to a production branch (see step 6 — on a git-linked host that push is the deploy). It hands the result note and screenshots to the person, who approves the production step themselves (see `packs/core/skills/evidence-loop`, part of the optional `aiwos-core` pack, for the general "evidence before claims" discipline this follows if you have it installed).
+8. **Stop before production.** This skill never runs a production deploy, never assigns a production alias, and never pushes or merges to a production branch (see step 6 — on a git-linked host that push is the deploy). It hands the result note and screenshots to the person, who approves the production step themselves (see the default `aiwos-core` pack's `evidence-loop` skill for the general "evidence before claims" discipline; it is optional for a web-only install).
 
 ## Worked example
 

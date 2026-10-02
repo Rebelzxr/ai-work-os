@@ -11,9 +11,9 @@ On the first run, use only made-up examples (including any prices, policies and 
 
 Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
 
-Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
+Use `safe-to-paste` from the default `aiwos-business` pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
 
-Adapted from Dainer's published library guide "Turn a rambling voice note into a step-by-step SOP" (<https://dainer-ai.biz/library>).
+Adapted from Dainer's published library guide "Turn a rambling voice note into a step-by-step SOP".
 
 ## What this needs
 

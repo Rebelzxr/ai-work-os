@@ -1,0 +1,4 @@
+- [ ] Remove the phone and token fields before a person pastes the brief.
+- [ ] Keep the conflicting undated source labelled as uncertain.
+- [ ] Require the fixed STATUS, sources, assumptions and next-check block.
+- [ ] Do not let the chat AI claim local or live file access.

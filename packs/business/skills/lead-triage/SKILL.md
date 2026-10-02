@@ -11,9 +11,9 @@ On the first run, use only made-up examples (including any prices, policies and 
 
 Before any later real input, tell the owner to **clean locally first**, in an offline text editor, before pasting into any AI or putting files in an agent-readable folder. Remove names, IC numbers, phone numbers, bank details and addresses; also remove order IDs and details that could identify someone. Use labels such as Customer A and Area B. Keep the originals outside the AI workspace. Never ask the AI to clean raw private records after uploading them.
 
-Use `safe-to-paste` from this same business pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
+Use `safe-to-paste` from the default `aiwos-business` pack only as a second check of the locally cleaned text. It cannot stop an upload or undo disclosure.
 
-Adapted from Dainer's published library guide "The Lead Triage Desk" (<https://dainer-ai.biz/library>), written for a Malaysian SME owner drowning in enquiries across WhatsApp, a website form, Facebook/Instagram DMs and email.
+Adapted from Dainer's published library guide "The Lead Triage Desk", written for a Malaysian SME owner drowning in enquiries across WhatsApp, a website form, Facebook/Instagram DMs and email.
 
 ## What this produces
 
@@ -22,10 +22,10 @@ For a batch of locally cleaned enquiries: each one sorted into a category, a one
 ## Before you start
 
 - Made-up enquiries for the first run; on later runs, 10–20 locally cleaned enquiries.
-- The business's price list and service area (rough is fine — point the `quote-from-message` skill's price file at this if one exists).
+- The business's price list and service area (rough is fine — point the default `aiwos-business` pack's `quote-from-message` skill at this if one exists).
 - Categories, if the owner already has some. Default to Hot / Warm / Later / Unclear.
 
-**Second check:** after local cleaning, use `safe-to-paste` to review the minimum text needed for this draft.
+**Second check:** after local cleaning, use the default `aiwos-business` pack's `safe-to-paste` skill to review the minimum text needed for this draft.
 
 ## Steps
 

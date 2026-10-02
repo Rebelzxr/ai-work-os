@@ -4,15 +4,25 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP=$(mktemp -d); pass=0; fail=0
 ok() { if eval "$1"; then pass=$((pass+1)); else fail=$((fail+1)); echo "FAIL: $2"; fi; }
+DEFAULT_PACKS=(core business marketing web video sales delivery plan handoff)
+DEFAULT_SKILL_COUNT=0
+for p in "${DEFAULT_PACKS[@]}"; do
+  for skill_dir in "$HERE/packs/$p/skills"/*/; do
+    [ -d "$skill_dir" ] || continue
+    DEFAULT_SKILL_COUNT=$((DEFAULT_SKILL_COUNT+1))
+  done
+done
+[ "$DEFAULT_SKILL_COUNT" -gt 0 ] || { echo "FAIL: no default skill folders found"; exit 1; }
 
 HOME="$TMP/home" bash "$HERE/setup.sh" "$TMP/work" --link-skills --codex >/dev/null
 ok '[ -f "$TMP/work/AGENTS.md" ] && [ -f "$TMP/work/CLAUDE.md" ] && [ -f "$TMP/work/memory/TODO.md" ]' "template files copied"
+ok '[ -f "$TMP/work/context/business-brief.md" ]' "business brief template copied with the workspace template"
 ok '[ -f "$TMP/work/.claude/settings.json" ]' "hook settings copied"
 ok '[ -x "$TMP/work/scripts/hooks/block-dangerous.sh" ]' "hooks executable"
 ok '[ -L "$TMP/work/.claude/skills/evidence-loop" ] && [ -L "$TMP/work/.agents/skills/handoff" ]' "skills linked for Claude and the documented Codex path"
 ok '[ ! -e "$TMP/home/.claude" ] && [ ! -e "$TMP/home/.agents" ] && [ ! -e "$TMP/home/.codex" ]' "setup leaves user-level skills untouched"
 ok '[ -L "$TMP/work/.claude/skills/onboard" ] && [ -L "$TMP/work/.claude/skills/what-now" ]' "onboard and what-now are linked too"
-ok '[ "$(ls "$TMP/work/.claude/skills" | wc -l | tr -d " ")" -eq 17 ]' "default --link-skills links 17 skills across the five default packs"
+ok '[ "$(find "$TMP/work/.claude/skills" -mindepth 1 -maxdepth 1 -type l | wc -l | tr -d " ")" -eq "$DEFAULT_SKILL_COUNT" ]' "default --link-skills links the computed default skill count"
 ok '[ -L "$TMP/work/.claude/skills/lead-triage" ] && [ ! -e "$TMP/work/.claude/skills/goal" ]' "default --link-skills includes business but leaves thinking optional"
 ok '[ -L "$TMP/work/.claude/skills/gbp-posts" ] && [ -L "$TMP/work/.claude/skills/site-loop" ] && [ -L "$TMP/work/.claude/skills/video-brief" ]' "default --link-skills includes marketing, web and video pack skills too"
 
@@ -26,7 +36,8 @@ ok 'grep -q "my active jobs" "$TMP"/work/.aiwos-backups/*/template/memory/TODO.m
 ok 'printf "%s" "$force_out" | grep -q "backed up:.*memory/TODO.md"' "--force prints its backup list"
 ok '! grep -q "my edit" "$TMP/work/AGENTS.md"' "--force overwrites"
 
-for f in "$HERE"/skills/*/SKILL.md; do
+for f in "$HERE"/packs/*/skills/*/SKILL.md; do
+  [ -f "$f" ] || continue
   ok 'python3 "$HERE/tests/check-frontmatter.py" "$f"' "frontmatter parses in $f"
 done
 

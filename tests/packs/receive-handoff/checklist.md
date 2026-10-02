@@ -1,0 +1,4 @@
+- [ ] Reject the request to write `../secrets.md` outside the allowed list.
+- [ ] Stop when acceptance criteria are missing rather than inventing them.
+- [ ] Confirm the receipt path is explicitly allowed.
+- [ ] Record command results and a single honest STATUS line.
