@@ -42,7 +42,7 @@ Claude skills: `<workspace>/.claude/skills`. Codex skills: `<workspace>/.agents/
 
 Have `AGENTS.md` and `memory/TODO.md` already? Add a pack below. If either is missing, use the new-workspace route above first.
 
-This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces): `.claude-plugin/marketplace.json` at the repo root lists ten plugins — `aiwos-core` (source: `./packs/core`, 7 skills), `aiwos-business` (source: `./packs/business`, 6 skills), `aiwos-marketing` (source: `./packs/marketing`, 3 skills), `aiwos-web` (source: `./packs/web`, 1 skill), `aiwos-video` (source: `./packs/video`, 1 skill), `aiwos-sales` (source: `./packs/sales`, 4 skills), `aiwos-delivery` (source: `./packs/delivery`, 3 skills), `aiwos-plan` (source: `./packs/plan`, 2 skills), `aiwos-handoff` (source: `./packs/handoff`, 6 skills), and optional `aiwos-thinking` (source: `./packs/thinking`, 7 skills). See [docs/packs.md](packs.md) for what each one has.
+This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces): `.claude-plugin/marketplace.json` at the repo root lists eleven plugins — `aiwos-core` (source: `./packs/core`, 7 skills), `aiwos-business` (source: `./packs/business`, 6 skills), `aiwos-marketing` (source: `./packs/marketing`, 3 skills), `aiwos-web` (source: `./packs/web`, 1 skill), `aiwos-video` (source: `./packs/video`, 1 skill), `aiwos-sales` (source: `./packs/sales`, 4 skills), `aiwos-delivery` (source: `./packs/delivery`, 3 skills), `aiwos-plan` (source: `./packs/plan`, 2 skills), `aiwos-handoff` (source: `./packs/handoff`, 6 skills), optional `aiwos-thinking` (source: `./packs/thinking`, 7 skills), and optional `aiwos-factory` (source: `./packs/factory`, 1 skill). See [docs/packs.md](packs.md) for what each one has.
 
 **Claude Code:**
 
@@ -59,9 +59,11 @@ claude plugin install aiwos-plan@ai-work-os --scope project
 claude plugin install aiwos-handoff@ai-work-os --scope project
 # Optional thinking tools:
 claude plugin install aiwos-thinking@ai-work-os --scope project
+# Optional factory stations (see docs/factory.md):
+claude plugin install aiwos-factory@ai-work-os --scope project
 ```
 
-Skills then run as `/aiwos-core:onboard`, `/aiwos-core:what-now`, `/aiwos-core:eod`, `/aiwos-core:evidence-loop`, `/aiwos-core:handoff`, `/aiwos-core:job-packet`, `/aiwos-core:business-brief`, and likewise `/aiwos-business:lead-triage`, `/aiwos-sales:qualified-prospect-pack`, `/aiwos-delivery:client-kickoff`, `/aiwos-plan:weekly-bottleneck-review`, `/aiwos-handoff:handoff-to-codex`, `/aiwos-marketing:gbp-posts`, `/aiwos-web:site-loop`, `/aiwos-video:video-brief`, and so on for each pack's skills. Run `claude plugin validate .` and `claude plugin validate ./packs/<name>` for every pack before release; these checks cover the marketplace and all ten plugin manifests.
+Skills then run as `/aiwos-core:onboard`, `/aiwos-core:what-now`, `/aiwos-core:eod`, `/aiwos-core:evidence-loop`, `/aiwos-core:handoff`, `/aiwos-core:job-packet`, `/aiwos-core:business-brief`, and likewise `/aiwos-business:lead-triage`, `/aiwos-sales:qualified-prospect-pack`, `/aiwos-delivery:client-kickoff`, `/aiwos-plan:weekly-bottleneck-review`, `/aiwos-handoff:handoff-to-codex`, `/aiwos-marketing:gbp-posts`, `/aiwos-web:site-loop`, `/aiwos-video:video-brief`, and so on for each pack's skills. Run `claude plugin validate .` and `claude plugin validate ./packs/<name>` for every pack before release; these checks cover the marketplace and all eleven plugin manifests.
 
 **Codex:** OpenAI's plugin docs say the Codex app reads a repo's own `$REPO_ROOT/.agents/plugins/marketplace.json`, and also treats a `$REPO_ROOT/.claude-plugin/marketplace.json` as **legacy-compatible** — so the same file this repo already has works:
 
@@ -70,7 +72,7 @@ codex plugin marketplace add Rebelzxr/ai-work-os
 codex plugin add aiwos-core@ai-work-os
 ```
 
-**Verified against a live Codex install** (codex-cli 0.154.0, 2026-09-29), for `aiwos-core` only: `codex plugin marketplace add .` read this repo's `.claude-plugin/marketplace.json` with no separate `.agents/plugins/marketplace.json` needed, `codex plugin list` showed `aiwos-core@ai-work-os`, and `codex plugin add aiwos-core@ai-work-os` installed it to the Codex plugin cache with all seven core skills present under `skills/`. The plugin and marketplace were removed again after the test so this check left no residue on the machine it ran on. **The other nine packs have not had the same live Codex round trip** — they are validated structurally by the Claude plugin checks but are not claimed as installed and exercised in a live Codex session.
+**Verified against a live Codex install** (codex-cli 0.154.0, 2026-09-29), for `aiwos-core` only: `codex plugin marketplace add .` read this repo's `.claude-plugin/marketplace.json` with no separate `.agents/plugins/marketplace.json` needed, `codex plugin list` showed `aiwos-core@ai-work-os`, and `codex plugin add aiwos-core@ai-work-os` installed it to the Codex plugin cache with all seven core skills present under `skills/`. The plugin and marketplace were removed again after the test so this check left no residue on the machine it ran on. **The other ten packs have not had the same live Codex round trip** — they are validated structurally by the Claude plugin checks but are not claimed as installed and exercised in a live Codex session.
 
 Sources used for this section:
 - Plugin manifest format: <https://code.claude.com/docs/en/plugin-marketplaces> (fetched 2026-09-29)

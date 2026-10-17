@@ -16,8 +16,9 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 | `packs/plan/` | `aiwos-plan` (2 skills) | `weekly-bottleneck-review`, `decision-stress-test` |
 | `packs/handoff/` | `aiwos-handoff` (6 skills) | Codex, Claude Code and chat briefs, receiving, return verification and cross-model review |
 | `packs/thinking/` | `aiwos-thinking` (7 skills, optional) | `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus` |
+| `packs/factory/` | `aiwos-factory` (1 skill, optional) | `motion-explainer`: a locked look, a scene-by-scene brief, chapter briefs for sub-agents and an independent review loop for HTML explainer videos. Why stations chain into a factory: [factory.md](factory.md) |
 
-The nine default packs contain 33 skills. The thinking pack is optional and adds 7 more. Install any pack at project scope:
+The nine default packs contain 33 skills. The thinking pack is optional and adds 7 more, and the factory pack is optional and adds 1. Install any pack at project scope:
 
 ```bash
 claude plugin marketplace add Rebelzxr/ai-work-os
@@ -32,6 +33,7 @@ claude plugin install aiwos-plan@ai-work-os --scope project
 claude plugin install aiwos-handoff@ai-work-os --scope project
 # Optional:
 claude plugin install aiwos-thinking@ai-work-os --scope project
+claude plugin install aiwos-factory@ai-work-os --scope project
 ```
 
 ## One job, two editions

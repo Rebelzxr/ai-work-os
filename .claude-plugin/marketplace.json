@@ -55,6 +55,11 @@
       "name": "aiwos-handoff",
       "source": "./packs/handoff",
       "description": "Six jobs for moving bounded work between AI tools with work orders, receipts, leases and independent checks."
+    },
+    {
+      "name": "aiwos-factory",
+      "source": "./packs/factory",
+      "description": "Optional stations for an AI factory: small skills with a file in, a file out, an independent check and a receipt. First: motion-explainer, a scene-by-scene brief and review loop for HTML explainer videos."
     }
   ]
 }

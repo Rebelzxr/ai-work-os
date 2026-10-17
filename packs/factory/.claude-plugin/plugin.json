@@ -1,0 +1,13 @@
+{
+  "name": "aiwos-factory",
+  "displayName": "AIW-OS Factory",
+  "version": "2.4.0",
+  "description": "Stations for an AI factory: small skills with a file in, a file out, an independent check and a receipt. First station: motion-explainer, a scene-by-scene brief and review loop for HTML explainer videos.",
+  "author": {
+    "name": "AIW-OS"
+  },
+  "homepage": "https://github.com/Rebelzxr/ai-work-os",
+  "repository": "https://github.com/Rebelzxr/ai-work-os",
+  "license": "MIT",
+  "keywords": ["factory", "motion", "explainer", "video", "review-loop"]
+}
