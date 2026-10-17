@@ -36,7 +36,7 @@ None of these stations is clever on its own. The value is that each one hands a 
 
 **Let the agent figure it out once, then make it a script.** The first time I uploaded a video batch, a browser agent clicked through YouTube Studio. One upload took about 16.3M Codex tokens and 134 browser steps, because every step re-sent the whole chat history. Now one Python script does the same job through the YouTube API with no model in the loop. Agents are great at working out a new job. Once the job is known, turn it into code that runs the same way every time.
 
-**Every correction patches the station.** When I fix a draft by hand and don't fix the skill, the same mistake comes back next week. So feedback goes into the skill or its checklist the same day, and the next run follows it without a reminder.
+**Every correction patches the station.** When I fix a draft by hand and don't fix the skill, the same mistake comes back next week. So feedback goes into the skill or its checklist the same day. The next run gets the updated checklist, and the reviewer checks whether the correction held.
 
 **Receipts beat memory.** "Done" from an agent means nothing until you can see it. A receipt names the file, the check that ran and its result. If a run can't prove something, it says UNVERIFIED and why, instead of saying done.
 

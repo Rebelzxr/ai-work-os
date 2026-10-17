@@ -41,4 +41,4 @@ A locked style, a scene table, one brief per chapter and a review checklist. No 
 
 ## Next job
 
-Give the chapter briefs to your builder or video tool. After the build, paste the review checklist and the contact sheets into a different AI for the independent review.
+Give the chapter briefs to your builder or video tool. After the build, paste the review checklist, the style, the scene table, the script, the captions, the proof sources and the contact sheets into a different AI for the independent review.

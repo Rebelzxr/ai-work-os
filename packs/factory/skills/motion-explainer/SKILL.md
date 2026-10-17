@@ -34,7 +34,7 @@ One folder with four files:
    - **Colour means something.** Pick a base colour and give every other colour one job. Example (dark chalkboard look): white for plain text, orange for the keyword of the line, slate blue for a tool or the AI, brick red for a problem, mint for a pass. Never colour for decoration.
    - **Readable sizes.** In a 16:9 long, any active text is at least 5% of frame height (about 54 px at 1080). In a 9:16 Short, active text is at least 60 px tall on the 1080x1920 frame. Small source labels are the only exception.
    - **Logos and faces.** Real tool logos only from the brand's own assets or as simple drawn tiles that follow its brand rules. Never AI-generated logos, and never AI-generated faces of real people.
-2. **Pace it.** The screen changes every 2–4 seconds in a long and every 1.5–2.5 seconds in a Short. A chapter card stays up 2 seconds at most and is never a silent card right after the opening promise.
+2. **Pace it.** The screen changes every 2–4 seconds in a long and every 1.5–2.5 seconds in a Short. A chapter card stays up 2 seconds at most and is never a silent card right after the opening promise. The only exception is the long-video ending hold in step 5.
 3. **Write `SCENES.md` from the script, line by line.** For each scene: start and end time (from the voice once it exists, estimated until then), the narration it covers, what is on screen, one motion verb (draw, reveal, pin, count up, cross out, zoom to), the on-screen text and the proof asset.
    - **Show one thing at a time.** A table or list reveals one group at a time with the rest dimmed.
    - **Proof goes big.** A screenshot or clip fills at least 60% of the frame width, cropped to the part that matters, with a small source and date label.
@@ -58,10 +58,11 @@ One folder with four files:
    - captions match the voice word for word, with no overlapping cues;
    - a contact sheet with one still every 2 seconds, which the builder reads and fixes;
    - before a render, enough free memory and disk, and renders run one at a time.
-8. **Independent review.** A different model, or a fresh session with no build history, gets the contact sheets, the captions, the script and `STYLE.md`, never the builder's chat. It returns PASS, PASS WITH FIXES (exact fixes) or FAIL. The builder applies the fixes using the reviewer's wording, then the changed parts are reviewed again. Stop after 3 rounds and take what is left to a person.
+8. **Independent review.** A different model, or a fresh session with no build history, gets the contact sheets, the captions, the script, `STYLE.md`, `SCENES.md` and the proof sources behind every on-screen number, never the builder's chat. It returns PASS, PASS WITH FIXES (exact fixes) or FAIL. The builder applies the fixes using the reviewer's wording, then the changed parts are reviewed again. Stop after 3 rounds and take what is left to a person.
 9. **Sound by measurement** when nobody listens to the mix:
-   - voice and sound effects at least 12 dB apart in every window;
-   - master around −14 LUFS with true peak at −1.5 dBTP or lower.
+   - while someone is speaking, sound effects sit at least 12 dB below the voice, measured as RMS on the separate voice and effects tracks in 1-second windows;
+   - master around −14 LUFS integrated with true peak at −1.5 dBTP or lower, measured with a loudness meter such as ffmpeg's `ebur128` filter;
+   - any number you could not measure goes in the receipt as UNVERIFIED, never as a pass.
 
 ## The review prompt (goes in REVIEW.md)
 
