@@ -2,7 +2,7 @@
 
 Most people meet AI as a shortcut. You paste a prompt, you get a good answer, you save twenty minutes. Next week you need the same thing, so you find the prompt again, paste it again, fix the same mistakes again. The shortcut never gets better, and it never runs without you.
 
-I run my content, two YouTube channels and three SEO projects with a handful of AI agents. What changed for me was not a better prompt. It was treating every repeat job like a station in a small factory: it takes a file in, puts a file out, gets checked by someone other than the maker, and leaves a receipt. Once a job works like that, it can run on a schedule, and the next station can pick up its output without me in the middle.
+I run my content, two YouTube channels and three SEO projects with a handful of AI agents. What changed for me was treating every repeat job like a station in a small factory: it takes a file in, puts a file out, gets checked by someone other than the maker, and leaves a receipt. Once a job works like that, it can run on a schedule, and the next station can pick up its output without me in the middle.
 
 This page explains the idea with my own content line as the example, then shows how to start one with the packs in this repo.
 
@@ -24,7 +24,7 @@ This is the line that makes most of my posts. Every arrow is a file in a folder.
 4. **Roast.** A different model, Codex, reviews every draft read-only and must return PASS before anything moves on. It checks the hook against what the post delivers, the facts, the tone and the usual AI tells. One of my quote posts failed for "empty praise" and "generic advice", got rewritten to name the other builder's feature and ask how he checked the calls, and then passed.
 5. **One approval.** I look once at a review page with the finished batch and tick or skip. I don't approve each step on the way, only the thing that goes public.
 6. **Schedule and post.** Approved posts get a time slot. A scheduled run posts them, checks it hasn't already posted the same thing, and writes down the live link.
-7. **Receipts and a weekly look back.** Every run leaves a receipt with what it did and a STATUS line: verified, unverified or broken. On Monday a report reads the numbers and the receipts, and whatever I changed or rejected becomes a rule in the skill that same day, so I never have to say it twice.
+7. **Receipts and a weekly look back.** Every run leaves a receipt with what it did and a STATUS line: verified, unverified or broken. On Monday a report reads the numbers and the receipts, and whatever I changed or rejected becomes a rule in the skill that same day, so the next run gets the correction and the reviewer checks whether it held.
 
 None of these stations is clever on its own. The value is that each one hands a checked file to the next, so the line keeps moving while I'm doing something else.
 
@@ -51,7 +51,7 @@ You don't need ten stations. Start with one job you already do every week.
 5. **Run it on a schedule.** Once it has passed a few times, let it run on its own and only look at the receipt.
 6. **Chain the next station.** When you trust the first one, point the next job at its output file. That's the factory.
 
-Run each station by hand until it's boring, then automate it. A station you never ran by hand will fail in ways you can't read.
+Run each station by hand until it's boring, then automate it. A station you never ran by hand tends to fail in ways you can't read.
 
 ## What a factory won't do
 

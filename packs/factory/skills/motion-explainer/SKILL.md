@@ -58,7 +58,7 @@ One folder with four files:
    - captions match the voice word for word, with no overlapping cues;
    - a contact sheet with one still every 2 seconds, which the builder reads and fixes;
    - before a render, enough free memory and disk, and renders run one at a time.
-8. **Independent review.** A different model, or a fresh session with no build history, gets the contact sheets, the captions, the script, `STYLE.md`, `SCENES.md` and the proof sources behind every on-screen number, never the builder's chat. It returns PASS, PASS WITH FIXES (exact fixes) or FAIL. The builder applies the fixes using the reviewer's wording, then the changed parts are reviewed again. Stop after 3 rounds and take what is left to a person.
+8. **Independent review.** A different model, or a fresh session with no build history, gets the rendered video, the sound measurement report, the contact sheets, the captions, the script, `STYLE.md`, `SCENES.md` and the proof sources behind every on-screen number, never the builder's chat. Narration timing, motion and audio can only be judged from the rendered video and the measurements. If the reviewer cannot play or measure them, those checks are marked UNVERIFIED, not passed. It returns PASS, PASS WITH FIXES (exact fixes) or FAIL. The builder applies the fixes using the reviewer's wording, then the changed parts are reviewed again. Stop after 3 rounds and take what is left to a person.
 9. **Sound by measurement** when nobody listens to the mix:
    - while someone is speaking, sound effects sit at least 12 dB below the voice, measured as RMS on the separate voice and effects tracks in 1-second windows;
    - master around −14 LUFS integrated with true peak at −1.5 dBTP or lower, measured with a loudness meter such as ffmpeg's `ebur128` filter;
@@ -75,6 +75,7 @@ Check against STYLE.md and SCENES.md:
 4. Do the captions match the narration word for word?
 5. For a Short: is frame 1 a number or a result, and is the bottom and right safe zone clear?
 6. Any AI-generated logo or real face, or any private detail on screen?
+7. Watching the rendered video and reading the sound report: does the narration line up with each scene, does the motion read cleanly, and does the audio meet the sound rules? If you cannot play or measure it, write UNVERIFIED for that check.
 Return: VERDICT: PASS | PASS WITH FIXES | FAIL, then numbered findings with timestamps and the exact fix.
 ```
 

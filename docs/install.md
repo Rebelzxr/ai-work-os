@@ -72,7 +72,7 @@ codex plugin marketplace add Rebelzxr/ai-work-os
 codex plugin add aiwos-core@ai-work-os
 ```
 
-**Verified against a live Codex install** (codex-cli 0.154.0, 2026-09-29), for `aiwos-core` only: `codex plugin marketplace add .` read this repo's `.claude-plugin/marketplace.json` with no separate `.agents/plugins/marketplace.json` needed, `codex plugin list` showed `aiwos-core@ai-work-os`, and `codex plugin add aiwos-core@ai-work-os` installed it to the Codex plugin cache with all seven core skills present under `skills/`. The plugin and marketplace were removed again after the test so this check left no residue on the machine it ran on. **The other nine packs have not had the same live Codex round trip** — they are validated structurally by the Claude plugin checks but are not claimed as installed and exercised in a live Codex session.
+**Verified against a live Codex install** (codex-cli 0.154.0, 2026-09-29), for `aiwos-core` only: `codex plugin marketplace add .` read this repo's `.claude-plugin/marketplace.json` with no separate `.agents/plugins/marketplace.json` needed, `codex plugin list` showed `aiwos-core@ai-work-os`, and `codex plugin add aiwos-core@ai-work-os` installed it to the Codex plugin cache with all seven core skills present under `skills/`. The plugin and marketplace were removed again after the test so this check left no residue on the machine it ran on. **The other ten packs have not had the same live Codex round trip** — they are validated structurally by the Claude plugin checks but are not claimed as installed and exercised in a live Codex session.
 
 Sources used for this section:
 - Plugin manifest format: <https://code.claude.com/docs/en/plugin-marketplaces> (fetched 2026-09-29)

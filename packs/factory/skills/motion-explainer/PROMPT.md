@@ -26,6 +26,7 @@ Produce four sections:
 3. CHAPTER BRIEFS: one per chapter, with its scenes, the exact narration and what "done" means.
 4. REVIEW CHECKLIST: the questions a different reviewer must answer before anyone uploads it.
 For a Short: frame 1 is a number or a visible result, nothing important in the bottom 350 px or right 150 px, no end card, the end loops to frame 1.
+For a long video, hold the final frame at least 10 seconds with space for end-screen elements. This is exempt from the 2-4 second screen-change rule.
 ```
 
 ## What you get back
@@ -41,4 +42,4 @@ A locked style, a scene table, one brief per chapter and a review checklist. No 
 
 ## Next job
 
-Give the chapter briefs to your builder or video tool. After the build, paste the review checklist, the style, the scene table, the script, the captions, the proof sources and the contact sheets into a different AI for the independent review.
+Give the chapter briefs to your builder or video tool. After the build, give a different AI the review checklist, the style, the scene table, the script, the captions, the proof sources, the contact sheets and, if it can take them, the rendered video and a sound measurement report. Anything it could not watch or measure counts as UNVERIFIED, not passed.
