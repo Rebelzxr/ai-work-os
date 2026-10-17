@@ -59,9 +59,11 @@ claude plugin install aiwos-plan@ai-work-os --scope project
 claude plugin install aiwos-handoff@ai-work-os --scope project
 # Optional thinking tools:
 claude plugin install aiwos-thinking@ai-work-os --scope project
+# Optional factory stations (see docs/factory.md):
+claude plugin install aiwos-factory@ai-work-os --scope project
 ```
 
-Skills then run as `/aiwos-core:onboard`, `/aiwos-core:what-now`, `/aiwos-core:eod`, `/aiwos-core:evidence-loop`, `/aiwos-core:handoff`, `/aiwos-core:job-packet`, `/aiwos-core:business-brief`, and likewise `/aiwos-business:lead-triage`, `/aiwos-sales:qualified-prospect-pack`, `/aiwos-delivery:client-kickoff`, `/aiwos-plan:weekly-bottleneck-review`, `/aiwos-handoff:handoff-to-codex`, `/aiwos-marketing:gbp-posts`, `/aiwos-web:site-loop`, `/aiwos-video:video-brief`, and so on for each pack's skills. Run `claude plugin validate .` and `claude plugin validate ./packs/<name>` for every pack before release; these checks cover the marketplace and all ten plugin manifests.
+Skills then run as `/aiwos-core:onboard`, `/aiwos-core:what-now`, `/aiwos-core:eod`, `/aiwos-core:evidence-loop`, `/aiwos-core:handoff`, `/aiwos-core:job-packet`, `/aiwos-core:business-brief`, and likewise `/aiwos-business:lead-triage`, `/aiwos-sales:qualified-prospect-pack`, `/aiwos-delivery:client-kickoff`, `/aiwos-plan:weekly-bottleneck-review`, `/aiwos-handoff:handoff-to-codex`, `/aiwos-marketing:gbp-posts`, `/aiwos-web:site-loop`, `/aiwos-video:video-brief`, and so on for each pack's skills. Run `claude plugin validate .` and `claude plugin validate ./packs/<name>` for every pack before release; these checks cover the marketplace and all eleven plugin manifests.
 
 **Codex:** OpenAI's plugin docs say the Codex app reads a repo's own `$REPO_ROOT/.agents/plugins/marketplace.json`, and also treats a `$REPO_ROOT/.claude-plugin/marketplace.json` as **legacy-compatible** — so the same file this repo already has works:
 

@@ -8,7 +8,7 @@ You decide. Agents do the work. Files keep the proof.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-665%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-672%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
@@ -77,6 +77,7 @@ Already running v1 or an earlier v2 in a workspace? Update this clone, then star
   - `aiwos-plan` (2 skills) — `weekly-bottleneck-review` and `decision-stress-test`: `claude plugin install aiwos-plan@ai-work-os --scope project`.
   - `aiwos-handoff` (6 skills) — Codex, Claude Code and chat briefs, receiving, return verification and cross-model review: `claude plugin install aiwos-handoff@ai-work-os --scope project`.
   - **Optional:** `aiwos-thinking` (7 skills) — `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt` and `stochastic-multi-agent-consensus`: `claude plugin install aiwos-thinking@ai-work-os --scope project`.
+  - **Optional:** `aiwos-factory` (1 skill) — `motion-explainer`, the first station of an AI factory: a locked look, scene-by-scene brief, chapter briefs and an independent review loop for HTML explainer videos. Why chained stations beat one-off prompts: [docs/factory.md](docs/factory.md). `claude plugin install aiwos-factory@ai-work-os --scope project`.
 
   Add the marketplace once with `claude plugin marketplace add Rebelzxr/ai-work-os`. See [docs/install.md](docs/install.md) and [docs/packs.md](docs/packs.md) for the full picture, including the `setup.sh --pack` route.
 - **A sales and delivery route for paid work.** `aiwos-sales` qualifies public prospects, plans discovery calls, builds scope-led proposals from supplied rate rules, and keeps a stop-aware deal queue. `aiwos-delivery` prepares kickoffs, creates scoped drafts, and checks them with a separate `PASS` / `REVISE` / `BLOCKED` gate. Each new job has both an agent edition (`SKILL.md`) and a copy-paste edition (`PROMPT.md`).
@@ -193,7 +194,8 @@ ai-work-os/
 │   ├── delivery/          the aiwos-delivery plugin (3 skills): kickoff, production and quality gate
 │   ├── plan/              the aiwos-plan plugin (2 skills): weekly bottleneck and decision review
 │   ├── handoff/           the aiwos-handoff plugin (6 skills): bounded multi-AI work orders and checks
-│   └── thinking/          the optional aiwos-thinking plugin (7 skills): scoping, copy and review tools
+│   ├── thinking/          the optional aiwos-thinking plugin (7 skills): scoping, copy and review tools
+│   └── factory/           the optional aiwos-factory plugin (1 skill): motion-explainer, a station with a review loop
 ├── template/             what lands in your workspace
 │   ├── AGENTS.md         rules every agent reads
 │   ├── CLAUDE.md         Claude Code entry point and lane routing
