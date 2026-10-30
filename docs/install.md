@@ -18,7 +18,7 @@ Say **"onboard"** to fill in the rules and board, then **"what now"**. The first
 
 `setup.sh` creates the workspace itself: `AGENTS.md`, `memory/TODO.md`, hooks and `dispatch/`. Plugins and `npx skills` install skills only; they cannot replace this step.
 
-With no `--pack`, `--link-skills` links **core + business + marketing + web + video + sales + delivery + plan + handoff** (33 skills) into `~/my-work/.claude/skills`. Add `--codex` to also link into `~/my-work/.agents/skills`. Setup does not write user-level skills folders. Existing global links from an earlier install stay where they are; remove unwanted links by name yourself after checking their targets.
+With no `--pack`, `--link-skills` links **core + business + marketing + web + video + sales + delivery + plan + handoff** (34 skills) into `~/my-work/.claude/skills`. Add `--codex` to also link into `~/my-work/.agents/skills`. Setup does not write user-level skills folders. Existing global links from an earlier install stay where they are; remove unwanted links by name yourself after checking their targets.
 
 To add the **optional thinking pack** later:
 
@@ -36,13 +36,13 @@ Run `./setup.sh ~/my-work --upgrade` for a read-only list and per-file diff of t
 
 ### Project skill paths
 
-Claude skills: `<workspace>/.claude/skills`. Codex skills: `<workspace>/.agents/skills`. Run `./doctor.sh ~/my-work` from this clone to check the workspace. It checks hook configuration and executable availability; it does not prove that a runtime has fired a hook or loaded a skill. The doctor counts the 33 default skills; thinking is optional.
+Claude skills: `<workspace>/.claude/skills`. Codex skills: `<workspace>/.agents/skills`. Run `./doctor.sh ~/my-work` from this clone to check the workspace. It checks hook configuration and executable availability; it does not prove that a runtime has fired a hook or loaded a skill. The doctor counts the 34 default skills; thinking is optional.
 
 ## Add skills to an existing workspace (plugins)
 
 Have `AGENTS.md` and `memory/TODO.md` already? Add a pack below. If either is missing, use the new-workspace route above first.
 
-This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces): `.claude-plugin/marketplace.json` at the repo root lists eleven plugins — `aiwos-core` (source: `./packs/core`, 7 skills), `aiwos-business` (source: `./packs/business`, 6 skills), `aiwos-marketing` (source: `./packs/marketing`, 3 skills), `aiwos-web` (source: `./packs/web`, 1 skill), `aiwos-video` (source: `./packs/video`, 1 skill), `aiwos-sales` (source: `./packs/sales`, 4 skills), `aiwos-delivery` (source: `./packs/delivery`, 3 skills), `aiwos-plan` (source: `./packs/plan`, 2 skills), `aiwos-handoff` (source: `./packs/handoff`, 6 skills), optional `aiwos-thinking` (source: `./packs/thinking`, 7 skills), and optional `aiwos-factory` (source: `./packs/factory`, 1 skill). See [docs/packs.md](packs.md) for what each one has.
+This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces): `.claude-plugin/marketplace.json` at the repo root lists eleven plugins — `aiwos-core` (source: `./packs/core`, 7 skills), `aiwos-business` (source: `./packs/business`, 6 skills), `aiwos-marketing` (source: `./packs/marketing`, 3 skills), `aiwos-web` (source: `./packs/web`, 1 skill), `aiwos-video` (source: `./packs/video`, 2 skills), `aiwos-sales` (source: `./packs/sales`, 4 skills), `aiwos-delivery` (source: `./packs/delivery`, 3 skills), `aiwos-plan` (source: `./packs/plan`, 2 skills), `aiwos-handoff` (source: `./packs/handoff`, 6 skills), optional `aiwos-thinking` (source: `./packs/thinking`, 7 skills), and optional `aiwos-factory` (source: `./packs/factory`, 1 skill). See [docs/packs.md](packs.md) for what each one has.
 
 **Claude Code:**
 
