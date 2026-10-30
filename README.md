@@ -66,12 +66,12 @@ Already running v1 or an earlier v2 in a workspace? Update this clone, then star
 - **Job packets and receipts.** Hand work between agents with exact files, a clear finish line and stop conditions. Every finished job leaves a receipt.
 - **Evidence before claims.** Every task-shaped reply ends with `STATUS: VERIFIED`, `UNVERIFIED` or `BROKEN`, backed by the checks that were actually run.
 - **Hooks that stop one-way doors.** Common forms of force pushes, hard resets, deleting your home folder and running a downloaded script wait for your approval. The hook reads a command roughly the way bash does, so a subshell, an `if` block or a line break does not hide it. If the check crashes, it blocks. The full rule list is in [docs/how-it-works.md](docs/how-it-works.md).
-- **33 default skills, plus 7 optional thinking tools.** Nine packs cover the starting set for a one-person business:
+- **34 default skills, plus 7 optional thinking tools.** Nine packs cover the starting set for a one-person business:
   - `aiwos-core` (7 skills) — `business-brief`, `evidence-loop`, `job-packet`, `handoff`, `eod`, `onboard` and `what-now`. Start here: `claude plugin install aiwos-core@ai-work-os --scope project`.
   - `aiwos-business` (6 skills) — `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send` and `voice-note-to-sop`. Drafts only, a person always sends: `claude plugin install aiwos-business@ai-work-os --scope project`.
   - `aiwos-marketing` (3 skills) — `gbp-posts`, `follow-up-drafts` and `content-from-real-work`. Drafts only: `claude plugin install aiwos-marketing@ai-work-os --scope project`.
   - `aiwos-web` (1 skill) — `site-loop`: brief, build, local preview, phone/desktop light/dark captures and console-error check, stopping before production: `claude plugin install aiwos-web@ai-work-os --scope project`.
-  - `aiwos-video` (1 skill) — `video-brief` plus its caption lint. It never renders or publishes video: `claude plugin install aiwos-video@ai-work-os --scope project`.
+  - `aiwos-video` (2 skills) — `video-brief` plus its caption lint, and `demo-video-edit`, which edits a raw recording into a tight cut and saves each timestamped note as a rule. Neither uploads or publishes video: `claude plugin install aiwos-video@ai-work-os --scope project`.
   - `aiwos-sales` (4 skills) — `qualified-prospect-pack`, `discovery-call-planner`, `scope-proposal` and `deal-follow-up`: `claude plugin install aiwos-sales@ai-work-os --scope project`.
   - `aiwos-delivery` (3 skills) — `client-kickoff`, `deliverable-production` and `quality-gate`: `claude plugin install aiwos-delivery@ai-work-os --scope project`.
   - `aiwos-plan` (2 skills) — `weekly-bottleneck-review` and `decision-stress-test`: `claude plugin install aiwos-plan@ai-work-os --scope project`.
@@ -189,7 +189,7 @@ ai-work-os/
 │   ├── business/         the aiwos-business plugin (6 skills): SME drafting skills, nothing sends
 │   ├── marketing/        the aiwos-marketing plugin (3 skills): GBP posts, follow-ups, content drafts
 │   ├── web/              the aiwos-web plugin (1 skill): site-loop, stops before production
-│   ├── video/             the aiwos-video plugin (1 skill): video-brief + a caption lint script
+│   ├── video/             the aiwos-video plugin (2 skills): video-brief + a caption lint script, demo-video-edit
 │   ├── sales/             the aiwos-sales plugin (4 skills): prospect, discovery, proposal and follow-up drafts
 │   ├── delivery/          the aiwos-delivery plugin (3 skills): kickoff, production and quality gate
 │   ├── plan/              the aiwos-plan plugin (2 skills): weekly bottleneck and decision review

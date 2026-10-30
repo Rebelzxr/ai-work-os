@@ -10,7 +10,7 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 | `packs/business/` | `aiwos-business` (6 skills) | `lead-triage`, `whatsapp-reply`, `quote-from-message`, `safe-to-paste`, `check-before-send`, `voice-note-to-sop` — drafts only, nothing sends |
 | `packs/marketing/` | `aiwos-marketing` (3 skills) | `gbp-posts`, `follow-up-drafts`, `content-from-real-work` — drafts only, nothing posts or sends |
 | `packs/web/` | `aiwos-web` (1 skill) | `site-loop` — brief, build, local preview, phone/desktop light/dark captures, console-error check, preview deploy; never runs a production deploy |
-| `packs/video/` | `aiwos-video` (1 skill) | `video-brief` plus its caption lint |
+| `packs/video/` | `aiwos-video` (2 skills) | `video-brief` plus its caption lint; `demo-video-edit`, which edits a raw recording into a tight cut (restarts and silences out, cue-word zooms, sound effects, cards) and saves each timestamped note as a rule — edits local files only |
 | `packs/sales/` | `aiwos-sales` (4 skills) | `qualified-prospect-pack`, `discovery-call-planner`, `scope-proposal`, `deal-follow-up` — drafts only |
 | `packs/delivery/` | `aiwos-delivery` (3 skills) | `client-kickoff`, `deliverable-production`, `quality-gate` |
 | `packs/plan/` | `aiwos-plan` (2 skills) | `weekly-bottleneck-review`, `decision-stress-test` |
@@ -18,7 +18,7 @@ A pack is a plugin: a folder under `packs/<name>/` with its own `.claude-plugin/
 | `packs/thinking/` | `aiwos-thinking` (7 skills, optional) | `goal`, `feature-to-feeling`, `packaging-audit`, `price-copy-audit`, `prompt-contract`, `reverse-prompt`, `stochastic-multi-agent-consensus` |
 | `packs/factory/` | `aiwos-factory` (1 skill, optional) | `motion-explainer`: a locked look, a scene-by-scene brief, chapter briefs for sub-agents and an independent review loop for HTML explainer videos. Why stations chain into a factory: [factory.md](factory.md) |
 
-The nine default packs contain 33 skills. The thinking pack is optional and adds 7 more, and the factory pack is optional and adds 1. Install any pack at project scope:
+The nine default packs contain 34 skills. The thinking pack is optional and adds 7 more, and the factory pack is optional and adds 1. Install any pack at project scope:
 
 ```bash
 claude plugin marketplace add Rebelzxr/ai-work-os
@@ -121,6 +121,8 @@ One skill: `site-loop`, sourced from the library guide "AI-assisted visual QA: P
 ## Video pack
 
 `video-brief` turns one real job into a 30–60s script, shot list, on-screen text and caption rules, then hands off to a video builder (HyperFrames is the linked default — see `docs/third-party-skills.md`). It never renders or publishes video itself.
+
+`demo-video-edit` edits an existing raw recording: it cuts restarts, false starts and long silences on Whisper word timestamps, zooms on a spoken cue word, adds one sound effect per new idea and a few animated cards (HyperFrames optional), runs an FFmpeg full decode check and reports the raw and cut lengths. Each timestamped note becomes a dated rule inside the skill file. It edits local files only; an independent review by a different AI or a person comes before any upload, and a person does the upload. For explainer scenes built from a script, use `motion-explainer` in `aiwos-factory`.
 
 `skills/video-brief/scripts/check-captions.py` (beta) is a deterministic lint for common SRT/WebVTT caption mistakes. It is not a complete WebVTT validator: for a full format check, also play the file in your video tool or run it through a dedicated validator. It checks: malformed cue blocks, timestamp ranges, timing overlaps, a cue ending before it starts, characters per line, lines per cue, and reading speed (characters/second). `tests/test-captions.sh` runs it against must-pass and must-fail fixtures under `tests/video/` (the suite prints its current assertion count; character counts strip real caption tags only (<i>, <b>, <u>, <c.x>, <v>, <lang>, <ruby>, <rt>, <font>, timestamp tags) and decode character references; a plain < or > in the text is counted). Lines break only at CR, LF or CRLF, as the WebVTT spec says, timing lines must be plain ASCII (a non-breaking space fails), the arrow needs a space on both sides, and anything after the end time other than a valid WebVTT cue setting (vertical, line, position, size, align, region with allowed values: percentages 0-100, whole line numbers, no repeats) is an error. It fails closed: any line that looks like a timing line (two clock times, or a clock time next to an arrow) inside the WEBVTT header or a NOTE, STYLE or REGION block is reported as a broken cue, so a NOTE such as "meeting 10:00 to 11:00" also fails; reword it or drop it.
 

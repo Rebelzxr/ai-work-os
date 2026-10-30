@@ -34,7 +34,7 @@
     {
       "name": "aiwos-video",
       "source": "./packs/video",
-      "description": "video-brief turns a real job into a 30-60s script, shot list and caption rules for a video builder, plus a deterministic SRT/VTT caption lint."
+      "description": "video-brief turns a real job into a 30-60s script, shot list and caption rules for a video builder, plus a deterministic SRT/VTT caption lint. demo-video-edit edits a raw recording into a tight cut with zooms, sound effects and cards, and learns each note as a rule."
     },
     {
       "name": "aiwos-sales",
