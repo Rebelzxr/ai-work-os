@@ -8,7 +8,7 @@ You decide. Agents do the work. Files keep the proof.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-ready-222724)](https://docs.claude.com/en/docs/claude-code)
 [![Works with Codex](https://img.shields.io/badge/Codex%20%C2%B7%20Cursor-AGENTS.md-222724)](template/AGENTS.md)
-[![Tests](https://img.shields.io/badge/tests-672%20passing-brightgreen)](tests)
+[![Tests](https://img.shields.io/badge/tests-678%20passing-brightgreen)](tests)
 [![Last commit](https://img.shields.io/github/last-commit/Rebelzxr/ai-work-os)](https://github.com/Rebelzxr/ai-work-os/commits)
 
 </div>
